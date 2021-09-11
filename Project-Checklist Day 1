@@ -1,0 +1,25 @@
+Project Title: Inter-Actor
+
+Project Description: Inter-Actor is an application that finds movies based on the criteria searched for. As an example the application would be able to search for all movies that contain two specific actors and a director or one actor, one writer, and one director. 
+ 
+User Story:
+As a movie watcher,
+I want to be able to cross reference multiple actors, directors, and writers
+So that we can find other movies that share 
+
+Wireframe of sketch/design:
+See figure 
+
+API’s to be used: (TBD)
+
+Tasks: (TBD)
+
+1)Search bar functionality;
+
+2)How it essentially functions:
+Set up an array, 
+Create a 2 dimension loop, that goes through each actor and their career
+
+3)API functionality
+
+4) Search history saved on local storage
