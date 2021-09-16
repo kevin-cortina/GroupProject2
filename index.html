@@ -6,29 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/Users/kcortina/Desktop/groupproject1/style.css" />
     <link rel="stylesheet" href="./assets/css/materialize.css">
+    <link rel="stylesheet" href="./assets/css/stylesheet.css">
 
     <title>Inter-Action</title>
 </head>
 <body>
     <h1>Inter-Action</h1>
 
-<!--Search Bar -->
-    <div class="topnav">
-        <input id="search" name="Search" type="search" value="Search" />
+<!--Search Bar   <div class="card-panel teal lighten-2"> -->
+<nav>
+    <div class="nav-wrapper row">
+      <form class="col s4 offset -s6">
+        <div class="input-field card-panel light-blue darken-1">
+          <input id="search" type="search" required class="light-blue darken-1">
+          <label class="label-icon light-blue darken-1" for="search"><i class="material-icons light-blue darken-1">Input: </i></label>
+          <i class="material-icons light-blue darken-1" >close</i>
+        </div>
+      </form>
+    </div>
+<!--
+    <div class="preloader-wrapper active">
+        <div class="spinner-layer spinner-red-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+-->
+    
     </div>
     <div class="row">
         <div class="column-1" style="background-color:#FFB695;">
             <h2>Search</h2>
-            <h4 class="header" id="search-filter-1">(Search Filter Placeholder) </h4>
-            <h4 class="header" id="search-filter-2">(Search Filter Placeholder) </h4>
-            <h4 class="header" id="search-filter-3">(Search Filter Placeholder) </h4>
+            <h4 class="header hoverable" id="search-filter-1">(Search Filter Placeholder) </h4>
+            <h4 class="header hoverable" id="search-filter-2">(Search Filter Placeholder) </h4>
+            <h4 class="header hoverable" id="search-filter-3">(Search Filter Placeholder) </h4>
         </div>
         <div class="column-2" style="background-color:#96D1CD;">
             <h2>Results</h2>
     <!--Results Card-->
             <p>
                 <div class="container">
-                    <div class="col s12 m6">
+                    <div class="col s12 m6 hoverable">
                         <h4 class="header" id="search-filter-1">(Search Filter Placeholder) </h4>
                         <div class="card-horizontal">
                           <div class="card-image" id="poster-image">
@@ -56,6 +79,7 @@
 
 </body>
 <!-- Script Sources-->
+<script src="./assets/script/testing.js"></script>
 <script src="./assets/script/materialize.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD:assets/css/stylesheet.css
 /* Add a black background color to the top navigation bar */
 .topnav {
   overflow: hidden;
@@ -93,7 +92,6 @@
   display: flex;
   }
 }
-=======
 /* Add a black background color to the top navigation bar */
 .topnav {
   overflow: hidden;
@@ -203,4 +201,3 @@
   display: flex;
   }
 }
->>>>>>> 8aec9c11e9a6a6fb47af15eeb5602bcff6c1a2b2:assets/stylesheet.css
