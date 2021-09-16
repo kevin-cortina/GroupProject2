@@ -1,5 +1,5 @@
 
-// Global Variables
+ Global Variables
 const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
@@ -96,4 +96,3 @@ const hardcodedData = [
         "name": "Lucky Numbers"
     }
 ]
-
