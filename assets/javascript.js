@@ -22,6 +22,7 @@ fetch(urlActorIdByActorName)
             })
             .then(function (data) {
                 const dataMovies = data.cast;
+                // console.log(dataMovies)
                 let movieObjects = [];
                 for (let i = 0; i < dataMovies.length; i++) {
                     const dataMovie = dataMovies[i];
@@ -30,7 +31,7 @@ fetch(urlActorIdByActorName)
                     movieObject.name = dataMovie.title;
                     movieObjects.push(movieObject);
                 }
-                console.log('movie objects:', movieObjects)
+                // console.log('movie objects:', movieObjects)
             })
             .catch(function (err) {
                 console.log("Something went wrong calling this url:", urlMoviesByActorId, err);
@@ -40,7 +41,58 @@ fetch(urlActorIdByActorName)
         console.log("Something went wrong calling this url:", urlActorIdByActorName, err);
     });
 
+// https://stackoverflow.com/questions/1885557/simplest-code-for-array-intersection-in-javascript
 
+
+// Get actor #1 id by name.
+// Get movies by actor #1 id.
+// Get actor #2 id by name.
+// Get movies by actor #2 id.
+// Combine lists.
+const doFetch = (url) => {
+    return fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .catch(function (err) {
+            console.log("Something went wrong calling this url:", url, err);
+        });
+};
+
+let actorId_1 = '';
+const getActorIdByActorName = actorName => {
+    const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
+    doFetch(urlActorIdByActorName)
+    .then( (data) => {
+        actorId_1 = data.results[0].id;
+        console.log('actorId_1', actorId_1);
+        getMoviesByActorId(actorId_1);
+    });
+}
+getActorIdByActorName('john travolta');
+
+const getMoviesByActorId = actorId => {
+    const urlMoviesByActorId = makeUrlMoviesByActorId(actorId);
+    doFetch(urlMoviesByActorId)
+    .then( (data) => {
+        console.log('kurtData:', data)
+        const movieObjects = processMovieList(data);
+        console.log('movieObjects', movieObjects)
+    });
+}
+
+const processMovieList = data => {
+    const dataMovies = data.cast;
+    let movieObjects = [];
+    for (let i = 0; i < dataMovies.length; i++) {
+        const dataMovie = dataMovies[i];
+        const movieObject = {};
+        movieObject.id = dataMovie.id;
+        movieObject.name = dataMovie.title;
+        movieObjects.push(movieObject);
+    }
+    return movieObjects;
+};
 
 // Utility Functions. //////////////////////////////////
 function makeUrlActorIdByActorName(actorName) {
