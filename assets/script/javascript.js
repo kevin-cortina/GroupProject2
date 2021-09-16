@@ -6,6 +6,27 @@ const tmdbUrl = 'https://api.themoviedb.org/3/';
 const actorName = 'John Travolta';
 const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
 
+
+// Function to find common movie ids.
+const arrA = [1, 3, 5, 7, 9];
+const arrB = [2, 3, 5, 7, 17];
+let intersection = arrA.filter(x => arrB.includes(x));
+console.log('Common movies:', intersection)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let moviedIdsInCommon = [];
 let actorId = '';
 fetch(urlActorIdByActorName)
     .then(function (response) {
@@ -25,6 +46,7 @@ fetch(urlActorIdByActorName)
                 // console.log(dataMovies)
                 let movieObjects = [];
                 for (let i = 0; i < dataMovies.length; i++) {
+                    moviedIdsInCommon.push(dataMovies[i].id);
                     const dataMovie = dataMovies[i];
                     const movieObject = {};
                     movieObject.id = dataMovie.id;
@@ -40,6 +62,9 @@ fetch(urlActorIdByActorName)
     .catch(function (err) {
         console.log("Something went wrong calling this url:", urlActorIdByActorName, err);
     });
+
+    console.log('moviedIdsInCommon', moviedIdsInCommon)
+
 
 // https://stackoverflow.com/questions/1885557/simplest-code-for-array-intersection-in-javascript
 
