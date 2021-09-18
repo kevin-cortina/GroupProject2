@@ -1,3 +1,4 @@
+kevin-cortina-patch-1
 
 body {
     background-image: linear-gradient(rgba(150, 209, 205), rgba(255, 183, 149, 0.788));
@@ -113,3 +114,19 @@ body {
     }
   }
   
+
+.card-stacked {
+    max-height: 100px;
+    display: inline-block;
+}
+
+.card .card-content {
+    padding: 15px 25px !important;
+}
+.card-action {
+padding: 5px 25px !important;
+}
+.card-image{
+    max-width: 200px;
+}
+dev
