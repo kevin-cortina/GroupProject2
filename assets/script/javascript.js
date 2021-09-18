@@ -78,6 +78,7 @@ const getMoviesByActorId = actor => {
                 // Store common movie ids.
                 appData.commonMovieIds = commonMovieIds;
             }
+            console.log('finally: appdata', appData)
         });
 }
 
@@ -156,78 +157,4 @@ function makeUrlMoviesByActorId(actorId) {
     url += '?api_key=' + apiKey;
     return url;
 }
-
-
-const hardcodedData = [
-    {
-        "id": 621,
-        "name": "Grease"
-    },
-    {
-        "id": 680,
-        "name": "Pulp Fiction"
-    },
-    {
-        "id": 754,
-        "name": "Face/Off"
-    },
-    {
-        "id": 1252,
-        "name": "Lonely Hearts"
-    },
-    {
-        "id": 2275,
-        "name": "The General's Daughter"
-    },
-    {
-        "id": 2928,
-        "name": "Michael"
-    },
-    {
-        "id": 10782,
-        "name": "Basic"
-    },
-    {
-        "id": 10783,
-        "name": "Lucky Numbers"
-    }
-]
-
-
-
-
-// let moviedIdsForAnActor = [];
-// const actorName = 'John Travolta';
-// const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
-// let actorId = '';
-// fetch(urlActorIdByActorName)
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(data => {
-//         actorId = data.results[0].id;
-//         // console.log('actorId for ' + actorName, actorId);
-
-//         const urlMoviesByActorId = makeUrlMoviesByActorId(actorId);
-//         fetch(urlMoviesByActorId)
-//             .then(function (response) {
-//                 return response.json();
-//             })
-//             .then(function (data) {
-//                 const dataMovies = data.cast;
-//                 // console.log(dataMovies)
-//                 for (let i = 0; i < dataMovies.length; i++) {
-//                     moviedIdsForAnActor.push(dataMovies[i].id);
-//                 }
-//                 appData[actorName] = moviedIdsForAnActor;
-//             })
-//             .catch(function (err) {
-//                 console.log("Something went wrong calling this url:", urlMoviesByActorId, err);
-//             });
-//     })
-//     .catch(function (err) {
-//         console.log("Something went wrong calling this url:", urlActorIdByActorName, err);
-//     });
-
-//     console.log('moviedIdsForAnActor', moviedIdsForAnActor)
 
