@@ -1,32 +1,33 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, options);
-  });
 
-  // Or with jQuery
+// document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.sidenav');
+//     var instances = M.Sidenav.init(elems, options);
+//   });
 
-  $(document).ready(function(){
-    $('.sidenav').sidenav();
-  });
+//   // Or with jQuery
 
-  M.AutoInit();
+//   $(document).ready(function(){
+//     $('.sidenav').sidenav();
+//   });
+
+//   M.AutoInit();
 
 
   
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.autocomplete');
-    var instances = M.Autocomplete.init(elems, options);
-  });
+//   document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.autocomplete');
+//     var instances = M.Autocomplete.init(elems, options);
+//   });
 
 
-  // Or with jQuery
+//   // Or with jQuery
 
-  $(document).ready(function(){
-    $('input.autocomplete').autocomplete({
-      data: {
-        "Apple": null,
-        "Microsoft": null,
-        "Google": 'https://placehold.it/250x250'
-      },
-    });
-  });
+//   $(document).ready(function(){
+//     $('input.autocomplete').autocomplete({
+//       data: {
+//         "Apple": null,
+//         "Microsoft": null,
+//         "Google": 'https://placehold.it/250x250'
+//       },
+//     });
+//   });

@@ -25,6 +25,7 @@ const searchField = document.getElementById('searchText');
 const searchButton_1 = document.getElementById('searchButton_1');
 const searchButton_2 = document.getElementById('searchButton_2');
 const searchButton_3 = document.getElementById('searchButton_3');
+const actorFiltersDiv = document.getElementById('actorFilters');
 searchButton_1.addEventListener('click', searchButton_1_Clicked)
 searchButton_2.addEventListener('click', searchButton_2_Clicked)
 searchButton_3.addEventListener('click', searchButton_3_Clicked)
@@ -79,9 +80,33 @@ const getMoviesByActorId = actor => {
                 appData.commonMovieIds = commonMovieIds;
             }
             console.log('finally: appdata', appData)
+            updateDisplay();
         });
 }
 
+const updateDisplay = () => {
+    updateActorFilters();
+    // updateResults();
+};
+
+const updateActorFilters = () => {
+    // Loop over appData actorFilters and create a button for each.
+    // Sample: <h4 class="header hoverable chip" id="search-filter-1">(Search Filter Placeholder) <i class="close material-icons">close</i></h4>
+    const actorFilters = appData.actorFilters;
+    for (let i = 0; i < actorFilters.length; i++) {
+        const actorFilter = actorFilters[i];
+        const iTag = document.createElement('i');
+        iTag.classList.add('close', 'material-icons');
+        iTag.textContent = 'close';
+        
+        const hTag = document.createElement('h4');
+        hTag.classList.add('header', 'hoverable', 'chip');
+        hTag.setAttribute('id', 'search-filter-' + actorFilter.id);
+        hTag.textContent = actorFilter.name;
+        hTag.appendChild(iTag);
+        actorFiltersDiv.appendChild(hTag)
+    }
+};
 
 const findCommonMovies = (movieIdsToCompare) => {
     // Compare two actors at a time.
