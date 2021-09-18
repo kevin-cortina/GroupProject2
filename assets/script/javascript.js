@@ -1,79 +1,52 @@
+/*
+Sample appData:
+appData = {
+    actorFilters: [
+        {
+            id: 234,
+            name: 'john travolta'
+        }
+    ],
+    commonMovieIds: [3, 5],
+    searchResults: {
+        actorId: {
+            actorName: 456,
+            movieIds: [1, 3, 5]
+        }
+    }
+}
+*/
 
 // Global Variables
 const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
-const actorName = 'John Travolta';
-const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
+const searchField = document.getElementById('searchText');
+const searchButton_1 = document.getElementById('searchButton_1');
+const searchButton_2 = document.getElementById('searchButton_2');
+const searchButton_3 = document.getElementById('searchButton_3');
+searchButton_1.addEventListener('click', searchButton_1_Clicked)
+searchButton_2.addEventListener('click', searchButton_2_Clicked)
+searchButton_3.addEventListener('click', searchButton_3_Clicked)
+
+let appData = {
+    actorFilters: [],
+    commonMovieIds: [],
+    searchResults: {}
+};
+
+function searchButton_1_Clicked() {
+    // getActorIdByActorName(searchField.value);
+    getActorIdByActorName('Chris Evans');
+}
+function searchButton_2_Clicked() {
+    getActorIdByActorName('Scarlett Johansson');
+}
+function searchButton_3_Clicked() {
+    getActorIdByActorName('Robert Downey, Jr.');
+}
 
 
-// Function to find common movie ids.
-const arrA = [1, 3, 5, 7, 9];
-const arrB = [2, 3, 5, 7, 17];
-let intersection = arrA.filter(x => arrB.includes(x));
-console.log('Common movies:', intersection)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let moviedIdsInCommon = [];
-let actorId = '';
-fetch(urlActorIdByActorName)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(data => {
-        actorId = data.results[0].id;
-        console.log('actorId for ' + actorName, actorId);
-
-        const urlMoviesByActorId = makeUrlMoviesByActorId(actorId);
-        fetch(urlMoviesByActorId)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                const dataMovies = data.cast;
-                // console.log(dataMovies)
-                let movieObjects = [];
-                for (let i = 0; i < dataMovies.length; i++) {
-                    moviedIdsInCommon.push(dataMovies[i].id);
-                    const dataMovie = dataMovies[i];
-                    const movieObject = {};
-                    movieObject.id = dataMovie.id;
-                    movieObject.name = dataMovie.title;
-                    movieObjects.push(movieObject);
-                }
-                // console.log('movie objects:', movieObjects)
-            })
-            .catch(function (err) {
-                console.log("Something went wrong calling this url:", urlMoviesByActorId, err);
-            });
-    })
-    .catch(function (err) {
-        console.log("Something went wrong calling this url:", urlActorIdByActorName, err);
-    });
-
-    console.log('moviedIdsInCommon', moviedIdsInCommon)
-
-
-// https://stackoverflow.com/questions/1885557/simplest-code-for-array-intersection-in-javascript
-
-
-// Get actor #1 id by name.
-// Get movies by actor #1 id.
-// Get actor #2 id by name.
-// Get movies by actor #2 id.
-// Combine lists.
 const doFetch = (url) => {
     return fetch(url)
         .then(response => {
@@ -84,39 +57,84 @@ const doFetch = (url) => {
         });
 };
 
-let actorId_1 = '';
 const getActorIdByActorName = actorName => {
     const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
     doFetch(urlActorIdByActorName)
-    .then( (data) => {
-        actorId_1 = data.results[0].id;
-        console.log('actorId_1', actorId_1);
-        getMoviesByActorId(actorId_1);
-    });
+        .then((data) => {
+            let actorId = data.results[0].id;
+            const actor = { id: actorId, name: actorName };
+            getMoviesByActorId(actor);
+        });
 }
-getActorIdByActorName('john travolta');
 
-const getMoviesByActorId = actorId => {
-    const urlMoviesByActorId = makeUrlMoviesByActorId(actorId);
+const getMoviesByActorId = actor => {
+    const urlMoviesByActorId = makeUrlMoviesByActorId(actor.id);
     doFetch(urlMoviesByActorId)
-    .then( (data) => {
-        console.log('kurtData:', data)
-        const movieObjects = processMovieList(data);
-        console.log('movieObjects', movieObjects)
-    });
+        .then((data) => {
+            processSearchResults(actor, data);
+            const movieIdsToCompare = getMovieArraysToCompare();
+            if (movieIdsToCompare) {
+                const commonMovieIds = findCommonMovies(movieIdsToCompare);
+                // Store common movie ids.
+                appData.commonMovieIds = commonMovieIds;
+            }
+        });
 }
+
+
+const findCommonMovies = (movieIdsToCompare) => {
+    // Compare two actors at a time.
+    const movieId2_1 = movieIdsToCompare[0];
+    const movieIds_2 = movieIdsToCompare[1];
+    const commonMovieIds = movieId2_1.filter(x => movieIds_2.includes(x));
+    return commonMovieIds;
+};
+
+
+// Determine which 2 arrays of movie ids to compare.
+// If only 1 actorFilter no point in comparing so return null.
+// If 2 actors, compare arrays of their movie ids.
+// If 3 or more actors, compare previous array of common movie ids to most recently added actorFilter.
+const getMovieArraysToCompare = () => {
+    const numberOfActorFilters = appData.actorFilters.length;
+    let movieIds_1 = 0;
+    let movieIds_2 = 0;
+    if (numberOfActorFilters === 1) {
+        console.log('enter another actor!!!!!!!!!!!!!!!!!');
+        return false;
+    } else if (numberOfActorFilters === 2) {
+        // Compare the 2 actor filters in appData.
+        const actorId_1 = appData.actorFilters[0].id;
+        const actorId_2 = appData.actorFilters[1].id;
+        movieIds_1 = appData.searchResults[actorId_1].movieIds;
+        movieIds_2 = appData.searchResults[actorId_2].movieIds;
+    } else {
+        // Compare latest actorFilter to previously calculated commonMovieIds.
+        movieIds_1 = appData.commonMovieIds;
+        const latestActorId = appData.actorFilters[appData.actorFilters.length - 1].id;
+        movieIds_2 = appData.searchResults[latestActorId].movieIds;
+    }
+    return [movieIds_1, movieIds_2];
+};
+
+const processSearchResults = (actor, data) => {
+    const movieIds = processMovieList(data);
+    const searchResult = {
+        actorName: actor.name,
+        movieIds: movieIds
+    };
+    appData.searchResults[actor.id] = searchResult;
+    appData.actorFilters.push({ id: actor.id, name: actor.name });
+};
 
 const processMovieList = data => {
     const dataMovies = data.cast;
-    let movieObjects = [];
+    let movieIds = [];
     for (let i = 0; i < dataMovies.length; i++) {
         const dataMovie = dataMovies[i];
-        const movieObject = {};
-        movieObject.id = dataMovie.id;
-        movieObject.name = dataMovie.title;
-        movieObjects.push(movieObject);
+        movieIds.push(dataMovie.id);
     }
-    return movieObjects;
+    return movieIds;
 };
 
 // Utility Functions. //////////////////////////////////
@@ -138,6 +156,7 @@ function makeUrlMoviesByActorId(actorId) {
     url += '?api_key=' + apiKey;
     return url;
 }
+
 
 const hardcodedData = [
     {
@@ -173,4 +192,42 @@ const hardcodedData = [
         "name": "Lucky Numbers"
     }
 ]
+
+
+
+
+// let moviedIdsForAnActor = [];
+// const actorName = 'John Travolta';
+// const urlActorIdByActorName = makeUrlActorIdByActorName(actorName);
+// let actorId = '';
+// fetch(urlActorIdByActorName)
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(data => {
+//         actorId = data.results[0].id;
+//         // console.log('actorId for ' + actorName, actorId);
+
+//         const urlMoviesByActorId = makeUrlMoviesByActorId(actorId);
+//         fetch(urlMoviesByActorId)
+//             .then(function (response) {
+//                 return response.json();
+//             })
+//             .then(function (data) {
+//                 const dataMovies = data.cast;
+//                 // console.log(dataMovies)
+//                 for (let i = 0; i < dataMovies.length; i++) {
+//                     moviedIdsForAnActor.push(dataMovies[i].id);
+//                 }
+//                 appData[actorName] = moviedIdsForAnActor;
+//             })
+//             .catch(function (err) {
+//                 console.log("Something went wrong calling this url:", urlMoviesByActorId, err);
+//             });
+//     })
+//     .catch(function (err) {
+//         console.log("Something went wrong calling this url:", urlActorIdByActorName, err);
+//     });
+
+//     console.log('moviedIdsForAnActor', moviedIdsForAnActor)
 
