@@ -92,13 +92,17 @@ const updateDisplay = () => {
 const updateActorFilters = () => {
     // Loop over appData actorFilters and create a button for each.
     // Sample: <h4 class="header hoverable chip" id="search-filter-1">(Search Filter Placeholder) <i class="close material-icons">close</i></h4>
+    // First, clear out old entries.
+    while (actorFiltersDiv.firstChild) {
+        actorFiltersDiv.removeChild(actorFiltersDiv.firstChild);
+    }
     const actorFilters = appData.actorFilters;
     for (let i = 0; i < actorFilters.length; i++) {
         const actorFilter = actorFilters[i];
         const iTag = document.createElement('i');
         iTag.classList.add('close', 'material-icons');
         iTag.textContent = 'close';
-        
+
         const hTag = document.createElement('h4');
         hTag.classList.add('header', 'hoverable', 'chip');
         hTag.setAttribute('id', 'search-filter-' + actorFilter.id);
