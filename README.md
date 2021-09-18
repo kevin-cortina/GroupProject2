@@ -1,5 +1,6 @@
 # GroupProject1
-
+Live link below
+ https://allout004.github.io/GroupProject1/
 
 ## movie actor comparison is the idea we are going with. atm
  
@@ -45,4 +46,8 @@
 ### Suggested trips app
     when people suggest ideas of location to go it adds it to a favorites or something so you can come back to it later and view the trip
 
-    
+'https://api.themoviedb.org/3/';
+user: kurtheimerman@yahoo.com
+pwd: GroupProject1
+
+
