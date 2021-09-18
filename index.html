@@ -7,25 +7,28 @@
     <link rel="stylesheet" type="text/css" href="/Users/kcortina/Desktop/groupproject1/style.css" />
     <link rel="stylesheet" href="./assets/css/materialize.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
-
-    <title>Inter-Action</title>
+    <title>InterActor</title>
 </head>
 <body>
-    <h1>Inter-Action</h1>
-
+    <div id="test">
+        <h1>InterActor</h1>
+    </div>
 <!--Search Bar   <div class="card-panel teal lighten-2"> -->
 <nav>
-    <div class="nav-wrapper row">
-      <form class="col s4 offset -s6">
+    <div class="nav-wrapper">
+      <form>
         <div class="input-field card-panel light-blue darken-1">
-          <input id="search" type="search" required class="light-blue darken-1">
+          <input id="search" type="search" required class="light-blue darken-1 custom-class">
           <label class="label-icon light-blue darken-1" for="search"><i class="material-icons light-blue darken-1">Input: </i></label>
           <i class="material-icons light-blue darken-1" >close</i>
+    
         </div>
+        
       </form>
     </div>
+
 <!--
-    <div class="preloader-wrapper active">
+        <div class="preloader-wrapper active">
         <div class="spinner-layer spinner-red-only">
           <div class="circle-clipper left">
             <div class="circle"></div>
@@ -37,17 +40,18 @@
         </div>
       </div>
 -->
+
     
     </div>
     <div class="row">
         <div class="column-1" style="background-color:#FFB695;">
-            <h2>Search</h2>
-            <h4 class="header hoverable" id="search-filter-1">(Search Filter Placeholder) </h4>
-            <h4 class="header hoverable" id="search-filter-2">(Search Filter Placeholder) </h4>
-            <h4 class="header hoverable" id="search-filter-3">(Search Filter Placeholder) </h4>
+            <h2 class="center-align">Search </h2>
+            <h4 class="header hoverable chip" id="search-filter-1">(Search Filter Placeholder) <i class="close material-icons">close</i></h4>
+            <h4 class="header hoverable chip" id="search-filter-2">(Search Filter Placeholder) <i class="close material-icons">close</i></h4>
+            <h4 class="header hoverable chip" id="search-filter-3">(Search Filter Placeholder) <i class="close material-icons">close</i></h4>
         </div>
         <div class="column-2" style="background-color:#96D1CD;">
-            <h2>Results</h2>
+            <h2 class="center-align">Results</h2>
     <!--Results Card-->
             <p>
                 <div class="container">
