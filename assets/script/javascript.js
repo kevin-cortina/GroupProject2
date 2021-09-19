@@ -26,9 +26,9 @@ const searchButton_1 = document.getElementById('searchButton_1');
 const searchButton_2 = document.getElementById('searchButton_2');
 const searchButton_3 = document.getElementById('searchButton_3');
 const actorFiltersDiv = document.getElementById('actorFilters');
-searchButton_1.addEventListener('click', searchButton_1_Clicked)
-searchButton_2.addEventListener('click', searchButton_2_Clicked)
-searchButton_3.addEventListener('click', searchButton_3_Clicked)
+// searchButton_1.addEventListener('click', searchButton_1_Clicked)
+// searchButton_2.addEventListener('click', searchButton_2_Clicked)
+// searchButton_3.addEventListener('click', searchButton_3_Clicked)
 
 let appData = {
     actorFilters: [],
@@ -186,4 +186,3 @@ function makeUrlMoviesByActorId(actorId) {
     url += '?api_key=' + apiKey;
     return url;
 }
-
