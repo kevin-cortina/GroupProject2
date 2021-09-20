@@ -21,15 +21,15 @@ appData = {
 const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
-const searchField = document.getElementById('searchText');
-const searchButton_1 = document.getElementById('searchButton_1');
-const searchButton_2 = document.getElementById('searchButton_2');
-const searchButton_3 = document.getElementById('searchButton_3');
+const searchField = document.getElementById('search');
+const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
+const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
+const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
 // remove at end
-searchButton_1.addEventListener('click', searchButton_1_Clicked);
-searchButton_2.addEventListener('click', searchButton_2_Clicked);
-searchButton_3.addEventListener('click', searchButton_3_Clicked);
+searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
+searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
+searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -39,14 +39,14 @@ let appData = {
     searchResults: {}
 };
 
-function searchButton_1_Clicked() {
+function searchButton_1_Clicked() { // Remove later.
     // getActorIdByActorName(searchField.value);
     searchForActor('Chris Evans');
 }
-function searchButton_2_Clicked() {
+function searchButton_2_Clicked() { // Remove later.
     searchForActor('Scarlett Johansson');
 }
-function searchButton_3_Clicked() {
+function searchButton_3_Clicked() { // Remove later.
     searchForActor('Robert Downey, Jr.');
 }
 
@@ -176,11 +176,6 @@ function actorFilterClicked(event) {
     const idAttributeValue = event.target.attributes.getNamedItem('id').value;
     const idAttributeValueSplit = idAttributeValue.split('-');
     const actorId = parseInt(idAttributeValueSplit[2]);
-    removeActorFilter(actorId);
-};
-
-// Remove from appData and call refresh().
-const removeActorFilter = actorId => {
     saveAppData('actorDelete', actorId);
     refreshDisplay();
 };
@@ -243,3 +238,9 @@ const makeUrlMoviesByActorId = actorId => {
     url += '?api_key=' + apiKey;
     return url;
 }
+
+const init = () => {
+    searchField.focus();
+};
+init();
+
