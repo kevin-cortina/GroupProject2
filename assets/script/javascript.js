@@ -126,6 +126,7 @@ const updateActorFilters = () => {
 
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
+        button.classList.add('btn')
         button.textContent = 'X';
         hTag.appendChild(button);
 
