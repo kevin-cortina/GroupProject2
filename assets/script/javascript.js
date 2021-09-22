@@ -329,16 +329,23 @@ function showResults() {
         movieUrl += "&append_to_response=credits";
         doFetch(movieUrl)
             .then((data) => {
-                let imgUrl = "https://image.tmdb.org/t/p/w500";
-                imgUrl += data.poster_path;
-                imgUrl += '?api_key=' + apiKey;
-                // console.log(data.credits.crew);
-                // console.log(Object.entries(data.credits.crew)); //FIGURE OUT HOW TO GET THE DIRECTOR NAME
-
-                // console.log((Object.entries(data.credits.crew).filter(item => item.job === 'Director').map(item => item.name)));
-
-                let movieData = [imgUrl, data.title, data.release_date.substring(0,4), data.credits];
                 
+                let imgUrl = "https://image.tmdb.org/t/p/w500";
+                if (data.poster_path) {
+                    imgUrl += data.poster_path;
+                    imgUrl += '?api_key=' + apiKey;
+                } else {
+                    imgUrl = "./assets/pictures/noPoster.jpg";
+                }
+
+                let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
+
+                if (!data.release_date) {
+                    movieData[2] = data.status;
+                }
+
+                console.log(data.status);
+
                 // let directorName = ;
                 createCard(movieData);
                 // console.log(data);
