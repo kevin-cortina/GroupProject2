@@ -142,7 +142,7 @@ const updateActorFilters = () => {
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
         button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button');
-        button.textContent = ' X';
+        button.textContent = ' ✕';
         hTag.appendChild(button);
 
         actorFiltersDiv.appendChild(hTag)
