@@ -10,6 +10,20 @@ body {
 margin-left: 10px;
 display: flex;
 }
+
+.actor-filter {
+  background-color: white;
+  width: 200px;
+  margin: 10px 10px;
+  display: flex;
+  justify-content: space-around
+}
+
+.close-button {
+  text-align: right;
+}
+
+
 /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
 @media screen and (min-width: 600px) {
   .topnav a, .topnav input[type=text] {
