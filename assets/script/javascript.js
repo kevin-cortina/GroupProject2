@@ -62,7 +62,7 @@ const searchForActor = searchString => {
             // Check for duplicate actors.
             const isDuplicate = checkForDuplicateActor(data);
             if (isDuplicate) {
-                alert('Duplicate actor entered');
+                // alert('Duplicate actor entered');
                 return;
             }
             const actor = makeActor(data);
