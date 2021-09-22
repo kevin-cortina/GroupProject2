@@ -141,8 +141,8 @@ const updateActorFilters = () => {
 
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
-        button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button', 'actor-filter-button');
-        button.textContent = ' X';
+        button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button', '.actor-filter-button');
+        button.textContent = ' ✕';
         hTag.appendChild(button);
 
         actorFiltersDiv.appendChild(hTag)
@@ -316,10 +316,17 @@ init();
 const resultsCol = document.querySelector("#resultsCol");
 
 function showResults() {
-
+    
     let movieResultIds = appData.commonMovieIds;
-
+    
     resultsCol.innerHTML = "";
+
+    if (movieResultIds.length == 0) {
+        let resultsText = resultsCol.appendChild(document.createElement("h4"));
+        resultsText.setAttribute("class", "center-align");
+        resultsText.textContent = "Results";
+    }
+
     for (var i = 0; i < movieResultIds.length; i++) {
 
         let movieUrl = tmdbUrl;
@@ -361,17 +368,17 @@ function createCard(movieData) {
     // let directorName = ;
 
     let containerDiv = resultsCol.appendChild(document.createElement("div"));
-    containerDiv.setAttribute("class", "container, left-align"); //changed
+    containerDiv.setAttribute("class", "container, left-align");
 
     let hoverDiv = containerDiv.appendChild(document.createElement("div"));
     hoverDiv.setAttribute("class", "col s12 m6 hoverable");
-    hoverDiv.setAttribute("id", "results-card-holder"); //changed
+    hoverDiv.setAttribute("id", "results-card-holder");
 
     let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
     cardHorizDiv.setAttribute("class", "card-horizontal");
 
     let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
-    cardImageDiv.setAttribute("class", "card-image-holder"); //changed
+    cardImageDiv.setAttribute("class", "card-image-holder");
     cardImageDiv.setAttribute("id", "poster-image");
 
     let posterImg = cardImageDiv.appendChild(document.createElement("img"));
