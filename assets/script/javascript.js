@@ -217,6 +217,8 @@ const makeActor = data => {
     return actor;
 };
 
+
+
 const checkForDuplicateActor = data => {
     const actorId = data.results[0].id;
     // Try to find this actor id.
