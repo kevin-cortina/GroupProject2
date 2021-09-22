@@ -32,10 +32,11 @@ var searchBar = document.getElementById("search")
 
 
 $(document).submit(function (event) {
-  console.log("This is a the submit function working")
+  console.log("This is the submit function working")
   event.preventDefault();
   // Get value from text field.
   const searchString = $('#searchBar').val();
   // call searchForActor()
   searchForActor(searchString);
+  document.getElementById('searchBar').value='';
 })
