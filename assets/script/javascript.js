@@ -39,16 +39,16 @@ let appData = {
     searchResults: {}
 };
 
-function searchButton_1_Clicked() { // Remove later.
-    // getActorIdByActorName(searchField.value);
-    searchForActor('Chris Evans');
-}
-function searchButton_2_Clicked() { // Remove later.
-    searchForActor('Scarlett Johansson');
-}
-function searchButton_3_Clicked() { // Remove later.
-    searchForActor('Robert Downey, Jr.');
-}
+// function searchButton_1_Clicked() { // Remove later.
+//     // getActorIdByActorName(searchField.value);
+//     searchForActor('Chris Evans');
+// }
+// function searchButton_2_Clicked() { // Remove later.
+//     searchForActor('Scarlett Johansson');
+// }
+// function searchButton_3_Clicked() { // Remove later.
+//     searchForActor('Robert Downey, Jr.');
+// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -57,7 +57,7 @@ const searchForActor = searchString => {
             // Check for duplicate actors.
             const isDuplicate = checkForDuplicateActor(data);
             if (isDuplicate) {
-                // alert('Duplicate actor entered');
+                alert('Duplicate actor entered');
                 return;
             }
             const actor = makeActor(data);
