@@ -10,3 +10,4 @@
 ## The deployed app is here:  https://allout004.github.io/GroupProject1/
 
 ## It uses HTML, CSS, Materialize, Web-API fetch, Javascript, Jquery and TMDB API.
+

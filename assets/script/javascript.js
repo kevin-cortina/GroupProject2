@@ -25,13 +25,11 @@ const searchField = document.getElementById('searchBar');
 // const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
 // const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
 // const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
-// const searchButton_4 = document.getElementById('searchButton_4'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
 // remove at end
 // searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
 // searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
 // searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
-// searchButton_4.addEventListener('click', searchButton_4_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -51,9 +49,6 @@ let appData = {
 // function searchButton_3_Clicked() { // Remove later.
 //     searchForActor('Robert Downey, Jr.');
 // }
-// function searchButton_4_Clicked() { // Remove later.
-//     searchForActor('Chadwick Boseman');
-// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -62,7 +57,6 @@ const searchForActor = searchString => {
             // Check for duplicate actors.
             const isDuplicate = checkForDuplicateActor(data);
             if (isDuplicate) {
-                // alert('Duplicate actor entered');
                 return;
             }
             const actor = makeActor(data);
@@ -276,11 +270,11 @@ const makeActor = data => {
 const checkForDuplicateActor = data => {
     const actorId = data.results[0].id;
     // Try to find this actor id.
-    const existingActor = appData.actorFilters.find((actor) => {
+    const existingActor = appData.actorFilters.find( (actor) => {
         return actor.id === actorId;
     });
 
-    if (existingActor) return true;
+    if(existingActor) return true;
     return false;
 };
 
@@ -326,7 +320,6 @@ function showResults() {
     let movieResultIds = appData.commonMovieIds;
 
     resultsCol.innerHTML = "";
-
     for (var i = 0; i < movieResultIds.length; i++) {
 
         let movieUrl = tmdbUrl;
@@ -334,20 +327,18 @@ function showResults() {
         movieUrl += movieResultIds[i];
         movieUrl += "?api_key=" + apiKey;
         movieUrl += "&append_to_response=credits";
-
         doFetch(movieUrl)
             .then((data) => {
                 let imgUrl = "https://image.tmdb.org/t/p/w500";
                 imgUrl += data.poster_path;
                 imgUrl += '?api_key=' + apiKey;
-
                 // console.log(data.credits.crew);
                 // console.log(Object.entries(data.credits.crew)); //FIGURE OUT HOW TO GET THE DIRECTOR NAME
 
                 // console.log((Object.entries(data.credits.crew).filter(item => item.job === 'Director').map(item => item.name)));
 
-                let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
-
+                let movieData = [imgUrl, data.title, data.release_date.substring(0,4), data.credits];
+                
                 // let directorName = ;
                 createCard(movieData);
                 // console.log(data);
