@@ -25,11 +25,13 @@ const searchField = document.getElementById('searchBar');
 // const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
 // const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
 // const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
+// const searchButton_4 = document.getElementById('searchButton_4'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
 // remove at end
 // searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
 // searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
 // searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
+// searchButton_4.addEventListener('click', searchButton_4_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -49,6 +51,9 @@ let appData = {
 // function searchButton_3_Clicked() { // Remove later.
 //     searchForActor('Robert Downey, Jr.');
 // }
+// function searchButton_4_Clicked() { // Remove later.
+//     searchForActor('Chadwick Boseman');
+// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -57,7 +62,7 @@ const searchForActor = searchString => {
             // Check for duplicate actors.
             const isDuplicate = checkForDuplicateActor(data);
             if (isDuplicate) {
-                alert('Duplicate actor entered');
+                // alert('Duplicate actor entered');
                 return;
             }
             const actor = makeActor(data);
@@ -97,7 +102,17 @@ const processMovieList = data => {
 };
 
 // Updates appData.commonMovieIds.
-const updateCommonMovieIds = () => {
+const updateCommonMovieIds = () => {    // TO BE REPLACED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // If one actor, show all their movies.
+    const numberOfActorFilters = appData.actorFilters.length;
+    if (numberOfActorFilters === 1) {
+        // If one actor, commonMovieIds should be their movies.
+        const loneActorsId = appData.actorFilters[0].id;
+        const actorsMoviesIds = appData.searchResults[loneActorsId].movieIds;
+        saveAppData('common', actorsMoviesIds);
+        return;
+    }
+
     const movieIdsToCompare = getMovieArraysToCompare();
     if (movieIdsToCompare) {
         const commonMovieIds = findCommonMovies(movieIdsToCompare);
@@ -174,7 +189,41 @@ const findCommonMovies = (movieIdsToCompare) => {
     return commonMovieIds;
 };
 
+const refreshCommonMovieIds = () => {
+    const numberOfActorFilters = appData.actorFilters.length;
+    console.log('In refreshCommonMovieIds:', numberOfActorFilters)
+    if (numberOfActorFilters === 0) {
+        // If no actors, there should be NO commonMovieIds.
+        saveAppData('common', []);
+    } else if (numberOfActorFilters === 1) {
+        // If one actor, commonMovieIds should be THEIR movies.
+        const loneActorsId = appData.actorFilters[0].id;
+        const actorsMoviesIds = appData.searchResults[loneActorsId].movieIds;
+        saveAppData('common', actorsMoviesIds);
+    } else if (numberOfActorFilters === 2) {
+        // Get the movie ids for the actors and compare.
+        const commonMovieIds = getFirstTwoActorsCommonMovieIds();
+        saveAppData('common', commonMovieIds);
+    } if (numberOfActorFilters > 2) {
+        // With more than 2 actors, need to call findCommonMovies(movieIds_1, movieIds_2) repetitively.
+        // But 1st, prep commonMovieIds with movidIds from movies between actors 1 & 2.  
+        let commonMovieIds = getFirstTwoActorsCommonMovieIds();
+        for (let actorFilter of appData.actorFilters) {
+            const actorsMovieIds = appData.searchResults[actorFilter.id].movieIds;
+            commonMovieIds = findCommonMovies([commonMovieIds, actorsMovieIds]);
+        }
+        saveAppData('common', commonMovieIds);
+    }
+};
 
+const getFirstTwoActorsCommonMovieIds = () => {
+    const actorId_1 = appData.actorFilters[0].id;
+    const actorId_2 = appData.actorFilters[1].id;
+    movieIds_1 = appData.searchResults[actorId_1].movieIds;
+    movieIds_2 = appData.searchResults[actorId_2].movieIds;
+    const commonMovieIds = findCommonMovies([movieIds_1, movieIds_2]);
+    return commonMovieIds;
+};
 
 // Event Handlers //////////////////////////////////////////////////////////
 function actorFilterClicked(event) {
@@ -183,7 +232,14 @@ function actorFilterClicked(event) {
     const idAttributeValue = event.target.attributes.getNamedItem('id').value;
     const idAttributeValueSplit = idAttributeValue.split('-');
     const actorId = parseInt(idAttributeValueSplit[2]);
+    removeActor(actorId);
+};
+
+const removeActor = (actorId) => {
+    // Remove actor from filters & searchResults.
     saveAppData('actorDelete', actorId);
+    // Recalc common movie ids.    
+    refreshCommonMovieIds();
     refreshDisplay();
 };
 
@@ -220,11 +276,11 @@ const makeActor = data => {
 const checkForDuplicateActor = data => {
     const actorId = data.results[0].id;
     // Try to find this actor id.
-    const existingActor = appData.actorFilters.find( (actor) => {
+    const existingActor = appData.actorFilters.find((actor) => {
         return actor.id === actorId;
     });
 
-    if(existingActor) return true;
+    if (existingActor) return true;
     return false;
 };
 
@@ -270,7 +326,7 @@ function showResults() {
     let movieResultIds = appData.commonMovieIds;
 
     resultsCol.innerHTML = "";
-    
+
     for (var i = 0; i < movieResultIds.length; i++) {
 
         let movieUrl = tmdbUrl;
@@ -278,20 +334,20 @@ function showResults() {
         movieUrl += movieResultIds[i];
         movieUrl += "?api_key=" + apiKey;
         movieUrl += "&append_to_response=credits";
-        
+
         doFetch(movieUrl)
             .then((data) => {
                 let imgUrl = "https://image.tmdb.org/t/p/w500";
                 imgUrl += data.poster_path;
                 imgUrl += '?api_key=' + apiKey;
-                
+
                 // console.log(data.credits.crew);
                 // console.log(Object.entries(data.credits.crew)); //FIGURE OUT HOW TO GET THE DIRECTOR NAME
 
                 // console.log((Object.entries(data.credits.crew).filter(item => item.job === 'Director').map(item => item.name)));
 
-                let movieData = [imgUrl, data.title, data.release_date.substring(0,4), data.credits];
-                
+                let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
+
                 // let directorName = ;
                 createCard(movieData);
                 // console.log(data);
@@ -309,36 +365,35 @@ function createCard(movieData) {
     let containerDiv = resultsCol.appendChild(document.createElement("div"));
     containerDiv.setAttribute("class", "container, left-align"); //changed
 
-        let hoverDiv = containerDiv.appendChild(document.createElement("div"));
-        hoverDiv.setAttribute("class", "col s12 m6 hoverable");
-        hoverDiv.setAttribute("id", "results-card-holder"); //changed
+    let hoverDiv = containerDiv.appendChild(document.createElement("div"));
+    hoverDiv.setAttribute("class", "col s12 m6 hoverable");
+    hoverDiv.setAttribute("id", "results-card-holder"); //changed
 
-            let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
-            cardHorizDiv.setAttribute("class", "card-horizontal");
+    let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
+    cardHorizDiv.setAttribute("class", "card-horizontal");
 
-                let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
-                cardImageDiv.setAttribute("class", "card-image-holder"); //changed
-                cardImageDiv.setAttribute("id", "poster-image");
+    let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
+    cardImageDiv.setAttribute("class", "card-image-holder"); //changed
+    cardImageDiv.setAttribute("id", "poster-image");
 
-                    let posterImg = cardImageDiv.appendChild(document.createElement("img"));
-                    posterImg.setAttribute("class", "card-image");
-                    posterImg.setAttribute("src", imgUrl);
+    let posterImg = cardImageDiv.appendChild(document.createElement("img"));
+    posterImg.setAttribute("class", "card-image");
+    posterImg.setAttribute("src", imgUrl);
 
-                let cardStackedDiv = cardHorizDiv.appendChild(document.createElement("div"));
-                cardStackedDiv.setAttribute("class", "card-stacked");
+    let cardStackedDiv = cardHorizDiv.appendChild(document.createElement("div"));
+    cardStackedDiv.setAttribute("class", "card-stacked");
 
-                    let cardContentDiv = cardStackedDiv.appendChild(document.createElement("div"));
-                    cardContentDiv.setAttribute("class", "card-content");
+    let cardContentDiv = cardStackedDiv.appendChild(document.createElement("div"));
+    cardContentDiv.setAttribute("class", "card-content");
 
-                        let movieTitleDiv = cardContentDiv.appendChild(document.createElement("h4"));
-                        movieTitleDiv.setAttribute("id", "movies-title");
-                        movieTitleDiv.textContent = movieTitle;
+    let movieTitleDiv = cardContentDiv.appendChild(document.createElement("h4"));
+    movieTitleDiv.setAttribute("id", "movies-title");
+    movieTitleDiv.textContent = movieTitle;
 
-                        let movieYearDiv = cardContentDiv.appendChild(document.createElement("div"));
-                        movieYearDiv.setAttribute("id", "year");
-                        movieYearDiv.textContent = "(" + movieYear + ")";
+    let movieYearDiv = cardContentDiv.appendChild(document.createElement("div"));
+    movieYearDiv.setAttribute("id", "year");
+    movieYearDiv.textContent = "(" + movieYear + ")";
 
-                        let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
-                        directorNameDiv.setAttribute("id", "director");
+    let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
+    directorNameDiv.setAttribute("id", "director");
 }
-
