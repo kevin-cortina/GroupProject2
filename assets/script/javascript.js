@@ -22,16 +22,16 @@ const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
 const searchField = document.getElementById('searchBar');
-const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
-const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
-const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
-const searchButton_4 = document.getElementById('searchButton_4'); // Remove later.
+// const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
+// const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
+// const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
+// const searchButton_4 = document.getElementById('searchButton_4'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
 // remove at end
-searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
-searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
-searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
-searchButton_4.addEventListener('click', searchButton_4_Clicked); // Remove later.
+// searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
+// searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
+// searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
+// searchButton_4.addEventListener('click', searchButton_4_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -337,16 +337,22 @@ function showResults() {
 
         doFetch(movieUrl)
             .then((data) => {
+                
                 let imgUrl = "https://image.tmdb.org/t/p/w500";
-                imgUrl += data.poster_path;
-                imgUrl += '?api_key=' + apiKey;
-
-                // console.log(data.credits.crew);
-                // console.log(Object.entries(data.credits.crew)); //FIGURE OUT HOW TO GET THE DIRECTOR NAME
-
-                // console.log((Object.entries(data.credits.crew).filter(item => item.job === 'Director').map(item => item.name)));
+                if (data.poster_path) {
+                    imgUrl += data.poster_path;
+                    imgUrl += '?api_key=' + apiKey;
+                } else {
+                    imgUrl = "./assets/pictures/noPoster.jpg";
+                }
 
                 let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
+
+                if (!data.release_date) {
+                    movieData[2] = data.status;
+                }
+
+                console.log(data.status);
 
                 // let directorName = ;
                 createCard(movieData);
