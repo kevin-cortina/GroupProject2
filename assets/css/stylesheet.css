@@ -7,6 +7,9 @@ body {
   background-color: #004d40;
 }
 
+#test {
+  margin-left: 10px;
+}
 .actor-filter {
   background-color: white;
   width: 200px;
@@ -27,7 +30,6 @@ body {
   text-align: right;
 }
 
-
 body {
   background-image: linear-gradient(#01579b, #004d40);
   /* /* background-image: url(../pictures/reel3.jfif); */
@@ -36,8 +38,6 @@ body {
   background-repeat: no-repeat;
   background-color: #004d40;
 }
-
-
 
 /* Search Card design */
 #actorsId{
@@ -100,4 +100,5 @@ display: flex;
   width:100%;
   padding-bottom: 0px;
   }
+
 }
