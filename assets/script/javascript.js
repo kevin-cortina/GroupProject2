@@ -41,19 +41,19 @@ let appData = {
     searchResults: {}
 };
 
-function searchButton_1_Clicked() { // Remove later.
-    // getActorIdByActorName(searchField.value);
-    searchForActor('Chris Evans');
-}
-function searchButton_2_Clicked() { // Remove later.
-    searchForActor('Scarlett Johansson');
-}
-function searchButton_3_Clicked() { // Remove later.
-    searchForActor('Robert Downey, Jr.');
-}
-function searchButton_4_Clicked() { // Remove later.
-    searchForActor('Chadwick Boseman');
-}
+// function searchButton_1_Clicked() { // Remove later.
+//     // getActorIdByActorName(searchField.value);
+//     searchForActor('Chris Evans');
+// }
+// function searchButton_2_Clicked() { // Remove later.
+//     searchForActor('Scarlett Johansson');
+// }
+// function searchButton_3_Clicked() { // Remove later.
+//     searchForActor('Robert Downey, Jr.');
+// }
+// function searchButton_4_Clicked() { // Remove later.
+//     searchForActor('Chadwick Boseman');
+// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -141,14 +141,14 @@ const updateActorFilters = () => {
         const actorFilter = actorFilters[i];
 
         const hTag = document.createElement('h4');
-        hTag.classList.add('header', 'hoverable', 'chip');
+        hTag.classList.add('header', 'chip', 'right-align', 'actor-filter');
         hTag.setAttribute('id', 'search-filter-' + actorFilter.id);
-        hTag.textContent = actorFilter.name;
+        hTag.textContent = actorFilter.name + ' ';
 
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
-        button.classList.add('btn')
-        button.textContent = 'X';
+        button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button');
+        button.textContent = ' X';
         hTag.appendChild(button);
 
         actorFiltersDiv.appendChild(hTag)
@@ -403,4 +403,3 @@ function createCard(movieData) {
     let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
     directorNameDiv.setAttribute("id", "director");
 }
-
