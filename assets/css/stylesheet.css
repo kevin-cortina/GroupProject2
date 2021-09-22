@@ -12,7 +12,15 @@ body {
   width: 200px;
   margin: 10px 10px;
   display: flex;
-  justify-content: space-around
+  /* justify-content: space-evenly */
+}
+
+.actor-filter-button{
+  display:block;
+  flex-wrap: nowrap;
+  text-align: right;
+  float: right;
+  justify-content: right;
 }
 
 .close-button {
