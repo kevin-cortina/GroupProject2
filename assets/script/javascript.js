@@ -135,14 +135,14 @@ const updateActorFilters = () => {
         const actorFilter = actorFilters[i];
 
         const hTag = document.createElement('h4');
-        hTag.classList.add('header', 'chip', 'right-align', 'actor-filter');
+        hTag.classList.add('header', 'chip', 'hoverable', 'actor-filter');
         hTag.setAttribute('id', 'search-filter-' + actorFilter.id);
         hTag.textContent = actorFilter.name + ' ';
 
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
         button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button');
-        button.textContent = ' ✕';
+        button.textContent = '✕';
         hTag.appendChild(button);
 
         actorFiltersDiv.appendChild(hTag)

@@ -15,7 +15,12 @@ body {
   width: 200px;
   margin: 10px 10px;
   display: flex;
-  justify-content: space-around
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 0px;
+}
+.chip {
+  margin-right: 0px !important;
 }
 
 .close-button {
