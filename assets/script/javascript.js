@@ -22,16 +22,14 @@ const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
 const searchField = document.getElementById('searchBar');
-const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
-const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
-const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
-const searchButton_4 = document.getElementById('searchButton_4'); // Remove later.
+// const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
+// const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
+// const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
 // remove at end
-searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
-searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
-searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
-searchButton_4.addEventListener('click', searchButton_4_Clicked); // Remove later.
+// searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
+// searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
+// searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -41,19 +39,16 @@ let appData = {
     searchResults: {}
 };
 
-function searchButton_1_Clicked() { // Remove later.
-    // getActorIdByActorName(searchField.value);
-    searchForActor('Chris Evans');
-}
-function searchButton_2_Clicked() { // Remove later.
-    searchForActor('Scarlett Johansson');
-}
-function searchButton_3_Clicked() { // Remove later.
-    searchForActor('Robert Downey, Jr.');
-}
-function searchButton_4_Clicked() { // Remove later.
-    searchForActor('Chadwick Boseman');
-}
+// function searchButton_1_Clicked() { // Remove later.
+//     // getActorIdByActorName(searchField.value);
+//     searchForActor('Chris Evans');
+// }
+// function searchButton_2_Clicked() { // Remove later.
+//     searchForActor('Scarlett Johansson');
+// }
+// function searchButton_3_Clicked() { // Remove later.
+//     searchForActor('Robert Downey, Jr.');
+// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -62,7 +57,6 @@ const searchForActor = searchString => {
             // Check for duplicate actors.
             const isDuplicate = checkForDuplicateActor(data);
             if (isDuplicate) {
-                // alert('Duplicate actor entered');
                 return;
             }
             const actor = makeActor(data);
@@ -141,14 +135,14 @@ const updateActorFilters = () => {
         const actorFilter = actorFilters[i];
 
         const hTag = document.createElement('h4');
-        hTag.classList.add('header', 'chip', 'right-align', 'actor-filter');
+        hTag.classList.add('header', 'chip', 'hoverable', 'actor-filter');
         hTag.setAttribute('id', 'search-filter-' + actorFilter.id);
         hTag.textContent = actorFilter.name + ' ';
 
         const button = document.createElement('button')
         button.setAttribute('id', 'search-filter-' + actorFilter.id);
         button.classList.add('btn', 'white', 'gray-text', 'chip', 'close-button');
-        button.textContent = ' X';
+        button.textContent = '✕';
         hTag.appendChild(button);
 
         actorFiltersDiv.appendChild(hTag)
@@ -276,11 +270,11 @@ const makeActor = data => {
 const checkForDuplicateActor = data => {
     const actorId = data.results[0].id;
     // Try to find this actor id.
-    const existingActor = appData.actorFilters.find((actor) => {
+    const existingActor = appData.actorFilters.find( (actor) => {
         return actor.id === actorId;
     });
 
-    if (existingActor) return true;
+    if(existingActor) return true;
     return false;
 };
 
@@ -322,10 +316,16 @@ init();
 const resultsCol = document.querySelector("#resultsCol");
 
 function showResults() {
-
+    
     let movieResultIds = appData.commonMovieIds;
-
+    
     resultsCol.innerHTML = "";
+
+    if (movieResultIds.length == 0) {
+        let resultsText = resultsCol.appendChild(document.createElement("h4"));
+        resultsText.setAttribute("class", "center-align");
+        resultsText.textContent = "Results";
+    }
 
     for (var i = 0; i < movieResultIds.length; i++) {
 
@@ -334,19 +334,24 @@ function showResults() {
         movieUrl += movieResultIds[i];
         movieUrl += "?api_key=" + apiKey;
         movieUrl += "&append_to_response=credits";
-
         doFetch(movieUrl)
             .then((data) => {
+                
                 let imgUrl = "https://image.tmdb.org/t/p/w500";
-                imgUrl += data.poster_path;
-                imgUrl += '?api_key=' + apiKey;
-
-                // console.log(data.credits.crew);
-                // console.log(Object.entries(data.credits.crew)); //FIGURE OUT HOW TO GET THE DIRECTOR NAME
-
-                // console.log((Object.entries(data.credits.crew).filter(item => item.job === 'Director').map(item => item.name)));
+                if (data.poster_path) {
+                    imgUrl += data.poster_path;
+                    imgUrl += '?api_key=' + apiKey;
+                } else {
+                    imgUrl = "./assets/pictures/noPoster.jpg";
+                }
 
                 let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
+
+                if (!data.release_date) {
+                    movieData[2] = data.status;
+                }
+
+                console.log(data.status);
 
                 // let directorName = ;
                 createCard(movieData);
@@ -363,17 +368,17 @@ function createCard(movieData) {
     // let directorName = ;
 
     let containerDiv = resultsCol.appendChild(document.createElement("div"));
-    containerDiv.setAttribute("class", "container, left-align"); //changed
+    containerDiv.setAttribute("class", "container, left-align");
 
     let hoverDiv = containerDiv.appendChild(document.createElement("div"));
     hoverDiv.setAttribute("class", "col s12 m6 hoverable");
-    hoverDiv.setAttribute("id", "results-card-holder"); //changed
+    hoverDiv.setAttribute("id", "results-card-holder");
 
     let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
     cardHorizDiv.setAttribute("class", "card-horizontal");
 
     let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
-    cardImageDiv.setAttribute("class", "card-image-holder"); //changed
+    cardImageDiv.setAttribute("class", "card-image-holder");
     cardImageDiv.setAttribute("id", "poster-image");
 
     let posterImg = cardImageDiv.appendChild(document.createElement("img"));
@@ -397,4 +402,3 @@ function createCard(movieData) {
     let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
     directorNameDiv.setAttribute("id", "director");
 }
-
