@@ -13,12 +13,28 @@
   <link rel="stylesheet" href="./assets/css/stylesheet.css" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" type="image/png" href="./assets/pictures/favicon.png" sizes="16x16">
+  <style>
+    .input-field [type=text] {
+        color: white;  
+    }
+    .input-field [type=password] {
+    color: white;
+    }
+</style>
   <title>InterActor</title>
 </head>
 <body>
-  <div id="test">
-    <h1 style="color: white;"> InterActor</h1>
-</div>
+  <div class="row">
+    <div id="test" class="col s6">
+      <h1 style="color: white;"> InterActor</h1>
+    </div>
+
+    <div id="test" class="col s6 push-s5 valign-wrapper">
+      <a href="#login" class="btn green darken-4 modal-trigger" id = "login_btn">Login/Signup</a>
+      
+    </div>
+  </div>
+
 <!--Search Bar   <div class="card-panel teal lighten-2"> -->
 <nav>
 <div class="nav-wrapper">
@@ -93,9 +109,72 @@
 <!--End results Card Code-->
     </div>
 </div>
+<div class="container">
+  <div class="modal grey darken-4" id="login">
+    <div class="modal-content">
+        <div class="container">
+
+            <h4 class="green-text center">Log In</h4>
+
+    
+            
+              <div class="row container grey darken-4">
+
+                <div class="input-field col s4">
+                  <input id="user_name" type="text">
+                  <label for="user_name">User Name</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input id="passWord" type="password">
+                    <label for="passWord">Password</label>
+                  </div>
+                <div class="col s4 ">
+                    <span class="green-text"><br> Log in</span>
+                    <a href="#" class="btn-floating green pulse">
+                        <i class="material-icons">send</i>
+                    </a>
+                </div>
+        </div>
+
+        <h4 class="blue-text center">Sign Up</h4>
+
+      
+            <div class="row container grey darken-4">
+
+                <div class="input-field col s4">
+                <input id="user_name" type="text">
+                <label for="user_name">User Name</label>
+                </div>
+
+                <div class="input-field col s4">
+                    <input id="passWord" type="password">
+                    <label for="passWord">Password</label>
+                </div>
+                <div class="col s4">
+                    <span class="blue-text"><br> Sign up</span>
+                    <a href="#" class="btn-floating blue pulse">
+                        <i class="material-icons">send</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="modal-footer grey darken-4">
+  <a href="" class="modal-close btn red darken-3">Close</a>
+
+
+    </div>
+  </div>
+</div>
 </body>
 <!-- Script Sources-->
 <script src="./assets/script/testing.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="./assets/script/javascript.js"></script>
+<script>
+  $(document).ready(function(){
+      $('.modal').modal();
+  })
+</script>
 </html>
