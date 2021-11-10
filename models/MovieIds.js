@@ -7,6 +7,9 @@ class MovieIds extends Model {}
 MovieIds.init(
   // An `id` is automatically created by Sequelize, though best practice would be to define the primary key ourselves
   {
+    listId: {
+      type: DataTypes.INTEGER
+    },
     movieIds: {
       type: DataTypes.STRING
     }

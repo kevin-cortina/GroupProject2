@@ -42,13 +42,14 @@ const addList = (listName, userId) => {
 };
 addList('my list', 5);
 
-const addMovieId = (movieId) => {
+const addMovieId = (listId, movieId) => {
   MovieIds.create({
+    listId: listId,
     movieIds: movieId
   })
   .then( (newMovieId) => {
     console.log('Movie id added:', newMovieId);
   });
 }
-addMovieId(666);
+addMovieId(7, 666);
 
