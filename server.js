@@ -5,8 +5,6 @@ const routes = require('./routes');
 const sequelize = require('./config/connection');
 
 const Users = require('./models/Users');
-const ListNames = require('./models/ListNames');
-const MovieIds = require('./models/MovieIds');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,25 +31,4 @@ const addUser = (username, password) => {
 };
 addUser('New User', 'myPassword');
 
-const addList = (listName, userId) => {
-  ListNames.create({
-    listName: listName,
-    userId: userId
-  })
-  .then( (newList) => {
-    console.log('New list created', newList.id, newList.listName, newList.userId)
-  })
-};
-addList('my list', 5);
-
-const addMovieId = (listId, movieId) => {
-  MovieIds.create({
-    listId: listId,
-    movieIds: movieId
-  })
-  .then( (newMovieId) => {
-    console.log('Movie id added:', newMovieId);
-  });
-}
-addMovieId(7, 666);
 
