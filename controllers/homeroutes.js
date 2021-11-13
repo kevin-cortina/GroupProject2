@@ -1,6 +1,6 @@
-const router = require("express").Router()
-router.get('/',async (req, res) => {
-res.render("search");
-//res.render('profile');
-});
-module.exports = router
+// const router = require("express").Router()
+// router.get('/',async (req, res) => {
+// res.render("layouts/main");
+// //res.render('profile');
+// });
+// module.exports = router
