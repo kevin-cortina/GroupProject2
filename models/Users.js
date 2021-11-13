@@ -12,6 +12,12 @@ Users.init(
     },
     password: {
       type: DataTypes.STRING
+    },
+    bio: {
+      type: DataTypes.STRING
+    },
+    favorites: {
+      type: DataTypes.STRING
     }
   },
   {
