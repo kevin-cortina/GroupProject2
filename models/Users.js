@@ -7,6 +7,11 @@ class Users extends Model {}
 Users.init(
   // An `id` is automatically created by Sequelize, though best practice would be to define the primary key ourselves
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     username: {
       type: DataTypes.STRING
     },
