@@ -5,7 +5,7 @@ const Users = require('../../models/Users');
 // Return the signup/login form
 router.get('/getLoginForm', (req, res) => {
   if (req.session && req.session.loggedIn) {
-    console.log('session exists')    
+    console.log('session exists')
     res.status(200).send('session exists, about to redirect ...')
     // res.redirect('/'); // Is this right?
     // return;
@@ -58,6 +58,7 @@ router.post('/login', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userId = dbUserData.id;
       res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
     });
   } catch (err) {
@@ -79,20 +80,35 @@ router.post('/logout', (req, res) => {
 });
 
 // Set bio field of user.
-
+router.put('/bio', async (req, res) => {
+  Users.update(
+    {
+      bio: req.body.bio
+    },
+    {
+      where: {
+        id: req.session.userId
+      },
+    }
+  )
+    .then((updatedUser) => {
+      // Sends the updated book as a json response
+      res.json(updatedUser);
+    })
+    .catch((err) => res.json(err));
+})
 
 
 
 // Get bio field of user.
 router.get('/bio', async (req, res) => {
-  // try {
-  //   const user = await User.findByPk(req.params.id);
-  //   const painting = dbPaintingData.get({ plain: true });
-  //   res.render('painting', { painting, loggedIn: req.session.loggedIn });
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(500).json(err);
-  // }
+  try {
+      const user = await Users.findByPk(req.session.userId);
+      res.status(200).json(user.bio);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 // Add favorite for user.
