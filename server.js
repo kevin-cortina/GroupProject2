@@ -1,34 +1,48 @@
 const express = require('express');
+const path= require("path")
+const exphbs =require('express-handlebars')
+const router = require("./controllers");
 const routes = require('./routes');
+const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Import the connection object
-const sequelize = require('./config/connection');
-
-const Users = require('./models/Users');
-
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const sequelize = require('./config/connection');
+const hbs = exphbs.create({})
+app.engine('handlebars',hbs.engine)
+app.set('view engine', 'handlebars');
+//const Users = require('./models/Users');
+//const sequelize = require('./config/connection');
+
+//const app = express();
+//const PORT = process.env.PORT || 3001;
+
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
+app.use(session(sess));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname,"public")));
+app.use(router);
 app.use(routes);
+
 
 // Connect to the database before starting the Express.js server
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
 
-// Temporary code.
-const addUser = (username, password) => {
-  Users.create({
-    username: username,
-    password: password
-  })
-    .then((newUser) => {
-      // Send the newly created row as a JSON object
-      console.log('Created User with id:', newUser.id);
-    })
-};
-addUser('New User', 'myPassword');
 
 
