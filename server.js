@@ -14,6 +14,11 @@ const sequelize = require('./config/connection');
 const hbs = exphbs.create({})
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars');
+//const Users = require('./models/Users');
+//const sequelize = require('./config/connection');
+
+//const app = express();
+//const PORT = process.env.PORT || 3001;
 
 const sess = {
   secret: 'Super secret secret',
@@ -33,7 +38,11 @@ app.use(express.static(path.join(__dirname,"public")));
 // app.use(router);
 app.use(routes);
 
+
 // Connect to the database before starting the Express.js server
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
+
+
+
