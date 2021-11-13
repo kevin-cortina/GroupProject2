@@ -1,10 +1,14 @@
-<div class="nav-wrapper">
-  <form style="background-color: #01579b;">
-    <div class="input-field" style="background-color: white;" >
-      <input id="searchBar" type="search" style="background-color: white; color: black;" placeholder="Enter an actor name ...">
-      <label class="label-icon" style="background-color: white;" for="search">
-        <i class="material-icons" id="search-text" style="color:black;">search </i></label>
-      <i class="material-icons" id="x-button" style="background-color: white;" onclick="document.getElementById('searchBar').value=''" >✕</i>
-    </div>        
-  </form>
-</div>
+
+<div class="row">
+    <div class="column-1" style="background-color:#01579b;">
+        <h4 class="center-align">Search Filters</h4>
+        <div id="actorFilters">
+            <h4 class="header hoverable chip" style="visibility:hidden;" id="search-filter-1">(Search Filter Placeholder) <i class="close material-icons" id="closeButton">close</i></h4>
+            <h4 class="header hoverable chip" style="visibility:hidden;" id="search-filter-2">(Search Filter Placeholder) <i class="close material-icons" id="closeButton">close</i></h4>
+            <h4 class="header hoverable chip" style="visibility:hidden;" id="search-filter-3">(Search Filter Placeholder) <i class="close material-icons" id="closeButton">close</i></h4>
+        </div>
+    </div>
+    <div class="column-2" id="resultsCol" style="background-color:#004d40;">
+        <h4 class="center-align">Results</h4>
+    </div>
+    </div>
