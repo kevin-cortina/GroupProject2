@@ -6,10 +6,10 @@
 
 // module.exports = router;
 
-const router = require("express").Router()
+// const router = require("express").Router()
 
-const homeroutes = require("./homeRoute")
+// const homeroutes = require("../homeRoute")
 
-router.use( "/" , homeroutes )
+// router.use( "/" , homeroutes )
 
-module.exports = router
+// module.exports = router
