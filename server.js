@@ -15,6 +15,14 @@ const hbs = exphbs.create({})
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars');
 
+app.engine('hbs',handlebars({
+  layoutsDir : __dirname + '/views/layouts',
+  defaultLayout : "mainLayout",
+  extname : "hbs",
+  partialsDir : __dirname + '/views/partial/'
+}))
+
+
 const sess = {
   secret: 'Super secret secret',
   cookie: {},

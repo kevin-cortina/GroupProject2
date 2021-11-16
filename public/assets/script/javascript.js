@@ -1,35 +1,11 @@
-/*
-Sample appData:
-appData = {
-    actorFilters: [
-        {
-            id: 234,
-            name: 'john travolta'
-        }
-    ],
-    commonMovieIds: [3, 5],
-    searchResults: {
-        actorId: {
-            actorName: 456,
-            movieIds: [1, 3, 5]
-        }
-    }
-}
-*/
+// const { create } = require("handlebars");
 
 // Global Variables
 const apiKey = '67ef4e4a60b4acfa5458eea4807a1de1';
 const tmdbUrl = 'https://api.themoviedb.org/3/';
 
 const searchField = document.getElementById('searchBar');
-// const searchButton_1 = document.getElementById('searchButton_1'); // Remove later.
-// const searchButton_2 = document.getElementById('searchButton_2'); // Remove later.
-// const searchButton_3 = document.getElementById('searchButton_3'); // Remove later.
 const actorFiltersDiv = document.getElementById('actorFilters');
-// remove at end
-// searchButton_1.addEventListener('click', searchButton_1_Clicked); // Remove later.
-// searchButton_2.addEventListener('click', searchButton_2_Clicked); // Remove later.
-// searchButton_3.addEventListener('click', searchButton_3_Clicked); // Remove later.
 actorFiltersDiv.addEventListener('click', actorFilterClicked);
 
 
@@ -38,17 +14,6 @@ let appData = {
     commonMovieIds: [],
     searchResults: {}
 };
-
-// function searchButton_1_Clicked() { // Remove later.
-//     // getActorIdByActorName(searchField.value);
-//     searchForActor('Chris Evans');
-// }
-// function searchButton_2_Clicked() { // Remove later.
-//     searchForActor('Scarlett Johansson');
-// }
-// function searchButton_3_Clicked() { // Remove later.
-//     searchForActor('Robert Downey, Jr.');
-// }
 
 const searchForActor = searchString => {
     const urlActorIdBySearchString = makeUrlActorIdBySearchString(searchString);
@@ -114,7 +79,6 @@ const updateCommonMovieIds = () => {    // TO BE REPLACED!!!!!!!!!!!!!!!!!!!!!!!
         saveAppData('common', commonMovieIds);
     }
 };
-
 
 // Functions for display //////////////////////////////////////////////////////////
 // Call this whenever appData has been updated.
@@ -237,7 +201,6 @@ const removeActor = (actorId) => {
     refreshDisplay();
 };
 
-
 // Utility Functions. //////////////////////////////////
 const saveAppData = (key, value) => {
     if (key === 'actor') {
@@ -256,7 +219,7 @@ const saveAppData = (key, value) => {
     } else {
         appData.searchResults[key] = value;
     }
-    console.log('appData is now:', appData)
+    // console.log('appData is now:', appData)
 };
 
 const makeActor = data => {
@@ -316,11 +279,8 @@ init();
 const resultsCol = document.querySelector("#resultsCol");
 
 function showResults() {
-    
     let movieResultIds = appData.commonMovieIds;
-    
     resultsCol.innerHTML = "";
-
     if (movieResultIds.length == 0) {
         let resultsText = resultsCol.appendChild(document.createElement("h4"));
         resultsText.setAttribute("class", "center-align");
@@ -328,7 +288,6 @@ function showResults() {
     }
 
     for (var i = 0; i < movieResultIds.length; i++) {
-
         let movieUrl = tmdbUrl;
         movieUrl += "movie/";
         movieUrl += movieResultIds[i];
@@ -336,7 +295,6 @@ function showResults() {
         movieUrl += "&append_to_response=credits";
         doFetch(movieUrl)
             .then((data) => {
-                
                 let imgUrl = "https://image.tmdb.org/t/p/w500";
                 if (data.poster_path) {
                     imgUrl += data.poster_path;
@@ -344,61 +302,44 @@ function showResults() {
                 } else {
                     imgUrl = "./assets/pictures/noPoster.jpg";
                 }
-
                 let movieData = [imgUrl, data.title, data.release_date.substring(0, 4), data.credits];
-
                 if (!data.release_date) {
                     movieData[2] = data.status;
                 }
-
-                console.log(data.status);
-
-                // let directorName = ;
-                createCard(movieData);
-                // console.log(data);
+                createCard2(movieUrl, imgUrl);
             });
     }
-
 }
 
-function createCard(movieData) {
-    let imgUrl = movieData[0];
-    let movieTitle = movieData[1];
-    let movieYear = movieData[2];
-    // let directorName = ;
+function createCard2(movieUrl) {
+   var ourRequest = new XMLHttpRequest(movieUrl);
+        ourRequest.open('GET', movieUrl)
+        ourRequest.send();
+        ourRequest.onload = function() {
+            if(ourRequest.status >= 200 && ourRequest.status < 400) {
+                var movieData = JSON.parse(ourRequest.responseText);
+                createHTML(movieData);
+            } else {
+                console.log("We connected to the server, but it returned an error.");
+            }
+        };     
+};
 
-    let containerDiv = resultsCol.appendChild(document.createElement("div"));
-    containerDiv.setAttribute("class", "container, left-align");
+function createHTML(movieData) {
+    var rawTemplate = document.getElementById("resultsTemplate").innerHTML;
+    var compiledTemplate = Handlebars.compile(rawTemplate);
+    var ourGeneratedHTML = compiledTemplate(movieData);
+    console.log(ourGeneratedHTML)
+    var rawContiner = document.getElementById("resultsCol");
+    rawContiner.innerHTML = ourGeneratedHTML + rawContiner.innerHTML;
+}
 
-    let hoverDiv = containerDiv.appendChild(document.createElement("div"));
-    hoverDiv.setAttribute("class", "col s12 m6 hoverable");
-    hoverDiv.setAttribute("id", "results-card-holder");
-
-    let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
-    cardHorizDiv.setAttribute("class", "card-horizontal");
-
-    let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
-    cardImageDiv.setAttribute("class", "card-image-holder");
-    cardImageDiv.setAttribute("id", "poster-image");
-
-    let posterImg = cardImageDiv.appendChild(document.createElement("img"));
-    posterImg.setAttribute("class", "card-image");
-    posterImg.setAttribute("src", imgUrl);
-
-    let cardStackedDiv = cardHorizDiv.appendChild(document.createElement("div"));
-    cardStackedDiv.setAttribute("class", "card-stacked");
-
-    let cardContentDiv = cardStackedDiv.appendChild(document.createElement("div"));
-    cardContentDiv.setAttribute("class", "card-content");
-
-    let movieTitleDiv = cardContentDiv.appendChild(document.createElement("h4"));
-    movieTitleDiv.setAttribute("id", "movies-title");
-    movieTitleDiv.textContent = movieTitle;
-
-    let movieYearDiv = cardContentDiv.appendChild(document.createElement("div"));
-    movieYearDiv.setAttribute("id", "year");
-    movieYearDiv.textContent = "(" + movieYear + ")";
-
-    let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
-    directorNameDiv.setAttribute("id", "director");
+function favBtnColor() {
+    var favBtn = document.getElementById('favBtn');
+    if(favBtn.style.color = "red") {
+        favBtn.style.color = "black";
+    }
+    else{
+        favBtn.style.color = "red";            
+    }
 }
