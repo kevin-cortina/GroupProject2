@@ -14,6 +14,7 @@ const sequelize = require('./config/connection');
 const hbs = exphbs.create({})
 app.engine('handlebars',hbs.engine)
 app.set('view engine', 'handlebars');
+<<<<<<< HEAD
 
 app.engine('hbs',handlebars({
   layoutsDir : __dirname + '/views/layouts',
@@ -22,6 +23,8 @@ app.engine('hbs',handlebars({
   partialsDir : __dirname + '/views/partial/'
 }))
 
+=======
+>>>>>>> bac2e48879e81bf2d3e16d3f8447aac6277992d2
 //const Users = require('./models/Users');
 //const sequelize = require('./config/connection');
 
