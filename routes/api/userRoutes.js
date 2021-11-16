@@ -120,7 +120,7 @@ router.put('/favorites', async (req, res) => {
 
     user.favorites = newFavorites;
     console.log('user.favorites:', user.favorites)
-    user.save();
+    await user.save();
     res.status(200).send(user.favorites);
   } catch (error) {
     console.log(err);
