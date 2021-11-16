@@ -322,8 +322,7 @@ function createCard2(movieUrl) {
             } else {
                 console.log("We connected to the server, but it returned an error.");
             }
-        };
-       
+        };     
 };
 
 function createHTML(movieData) {
@@ -333,10 +332,6 @@ function createHTML(movieData) {
     console.log(ourGeneratedHTML)
     var rawContiner = document.getElementById("resultsCol");
     rawContiner.innerHTML = ourGeneratedHTML + rawContiner.innerHTML;
-}
-
-function favBtnColor() {
-    var favBtn = document.getElementById("favBtn")
 }
 
 function favBtnColor() {
