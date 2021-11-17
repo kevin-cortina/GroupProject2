@@ -7,12 +7,12 @@ router.get('/getLoginForm', (req, res) => {
   if (req.session && req.session.loggedIn) {
     console.log('session exists')
     res.status(200).send('session exists, about to redirect ...')
-    // res.redirect('/'); // Is this right?
-    // return;
+    res.redirect('/'); // Is this right?
+    return;
   } else {
     console.log('session NOT exists')
     res.status(500).send('session NOT exists, about to return login form')
-    // res.render('login');
+    res.render('login');
   }
 });
 
