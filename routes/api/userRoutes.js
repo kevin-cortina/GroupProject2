@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const Users = require('../../models/Users');
 
+
 // Return the signup/login form
 router.get('/getLoginForm', (req, res) => {
   if (req.session && req.session.loggedIn) {
@@ -68,10 +69,13 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   console.log('now in /logout')
   if (req.session.loggedIn) {
+    console.log("pre dead")
     req.session.destroy(() => {
+      console.log("post dead")
       res.status(204).end();
     });
   } else {
+    console.log("wut")
     res.status(404).end();
   }
 });
