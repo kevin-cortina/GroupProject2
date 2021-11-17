@@ -45,16 +45,19 @@ router.post('/login', async (req, res) => {
   try {
     const dbUserData = await Users.findOne({
       where: { username: req.body.username },
-      
+
     });
+    console.log("TRY REQUEST WORKED")
     if (!dbUserData) {
       res.status(400).json({ message: 'Incorrect username. Please try again!' });
+      console.log("NO USERNAME")
       return;
     }
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
+      console.log("NO PASSWORD")
       return;
     }
     req.session.save(() => {
