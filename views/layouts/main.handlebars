@@ -13,9 +13,16 @@
   <title>InterActor</title>
 </head>
 <body>
-  <div id="test">
-    <h1 style="color: white;"> InterActor</h1>
-</div>
+  <div class="row">
+    <div id="test" class="col s3">
+      <h1 style="color: white;"> InterActor</h1>
+    </div>
+
+    <div id="test" class="col s2 push-s6 valign-wrapper">
+      <a href="#login" class="btn green darken-4 modal-trigger" id = "login_btn">Login/Signup</a>
+      
+    </div>
+  </div>
 <main>
   <div class="nav-wrapper">
   <form style="background-color: #01579b;">
@@ -27,6 +34,7 @@
     </div>        
   </form>
 </div>
+    {{> login}}
     {{{body}}}
 </main>
 
@@ -35,4 +43,9 @@
 <script src="./assets/script/testing.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="./assets/script/javascript.js"></script>
+<script>
+  $(document).ready(function(){
+      $('.modal').modal();
+  })
+</script>
 </html>
