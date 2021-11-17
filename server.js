@@ -14,12 +14,12 @@ const hbs = exphbs.create({})
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars');
 
-app.engine('hbs', exphbs({
-  layoutsDir : __dirname + '/views/layouts',
-  defaultLayout : "mainLayout",
-  extname : "hbs",
-  partialsDir : __dirname + '/views/partial/'
-}))
+// app.engine('hbs', exphbs({
+//   layoutsDir : __dirname + '/views/layouts',
+//   defaultLayout : "mainLayout",
+//   extname : "hbs",
+//   partialsDir : __dirname + '/views/partials/'
+// }))
 
 
 
