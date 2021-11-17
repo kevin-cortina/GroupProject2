@@ -28,10 +28,12 @@ router.post('/signUp', async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
       res.status(200).json(userData);
+      console.log("router post signUP worked")
     });
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
+    console.log("router post signUP did NOT work")
   }
 });
 
@@ -42,6 +44,7 @@ router.post('/login', async (req, res) => {
   try {
     const dbUserData = await Users.findOne({
       where: { username: req.body.username },
+      
     });
     if (!dbUserData) {
       res.status(400).json({ message: 'Incorrect username. Please try again!' });
@@ -57,10 +60,12 @@ router.post('/login', async (req, res) => {
       req.session.loggedIn = true;
       req.session.userId = dbUserData.id;
       res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
+      console.log("router post login worked")
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).json(err);     
+    console.log("router post login did NOT worked")
   }
 });
 
@@ -70,9 +75,11 @@ router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
+      console.log("Session Destroyed")
     });
   } else {
     res.status(404).end();
+    console.log("Session not Destroyed")
   }
 });
 

@@ -4,12 +4,12 @@ const exphbs = require('express-handlebars')
 const routes = require('./routes');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require('./config/connection');
 
 // Import the connection object
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const sequelize = require('./config/connection');
+ 
 const hbs = exphbs.create({})
 app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars');
@@ -20,14 +20,6 @@ app.engine('hbs', exphbs({
   extname : "hbs",
   partialsDir : __dirname + '/views/partial/'
 }))
-
-
-
-//const Users = require('./models/Users');
-//const sequelize = require('./config/connection');
-
-//const app = express();
-//const PORT = process.env.PORT || 3001;
 
 const sess = {
   secret: 'Super secret secret',
