@@ -104,6 +104,8 @@ router.get('/bio', async (req, res) => {
   try {
       const user = await Users.findByPk(req.session.userId);
       res.status(200).json(user.bio);
+      let bio = user.bio;
+      res.render("biomodal", { bio });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
