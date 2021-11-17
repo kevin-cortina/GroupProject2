@@ -2,17 +2,18 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const Users = require('../../models/Users');
 
+
 // Return the signup/login form
 router.get('/getLoginForm', (req, res) => {
   if (req.session && req.session.loggedIn) {
     console.log('session exists')
     res.status(200).send('session exists, about to redirect ...')
-    // res.redirect('/'); // Is this right?
-    // return;
+    res.redirect('/'); // Is this right?
+    return;
   } else {
     console.log('session NOT exists')
     res.status(500).send('session NOT exists, about to return login form')
-    // res.render('login');
+    res.render('login');
   }
 });
 
@@ -73,11 +74,14 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   console.log('now in /logout')
   if (req.session.loggedIn) {
+    console.log("pre dead")
     req.session.destroy(() => {
+      console.log("post dead")
       res.status(204).end();
       console.log("Session Destroyed")
     });
   } else {
+    console.log("wut")
     res.status(404).end();
     console.log("Session not Destroyed")
   }

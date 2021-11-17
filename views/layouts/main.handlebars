@@ -20,10 +20,14 @@
 
     <div id="test" class="col s2 push-s6 valign-wrapper">
       {{#if loggedIn}}
+<<<<<<< HEAD
       {{!-- <button id="logout" class="btn-no-style">Logout</button> --}}
       <button id = "logout" class="btn waves-effect waves-light"name="logout">Fuck Yes
       <i class="material-icons right">send</i>
 
+=======
+      <button id="logout" class="btn-no-style">Logout</button>
+>>>>>>> 5b384b4e9c8956317f6592fa19c1cd564ccf1ceb
          {{else}}
       <a href="#login" class="btn green darken-4 modal-trigger" id = "login_btn">Login/Signup</a>
       {{/if}}
@@ -43,7 +47,9 @@
     {{> login}}
     {{{body}}}
 </main>
-
+  {{#if loggedIn}}
+  <script src="./assets/script/logout.js"></script>
+  {{/if}}
 </body>
 <!-- Script Sources-->
 <script src="./assets/script/testing.js"></script>
@@ -54,5 +60,9 @@
       $('.modal').modal();
   })
 </script>
+<<<<<<< HEAD
 <script src="./assets/script/logout.js"></script>
+=======
+
+>>>>>>> 5b384b4e9c8956317f6592fa19c1cd564ccf1ceb
 </html>
