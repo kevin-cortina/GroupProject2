@@ -19,8 +19,11 @@
     </div>
 
     <div id="test" class="col s2 push-s6 valign-wrapper">
+      {{#if loggedIn}}
+      <button id="logout" class="btn-no-style">Logout</button>
+         {{else}}
       <a href="#login" class="btn green darken-4 modal-trigger" id = "login_btn">Login/Signup</a>
-      
+      {{/if}}
     </div>
   </div>
 <main>
@@ -37,7 +40,9 @@
     {{> login}}
     {{{body}}}
 </main>
-
+  {{#if loggedIn}}
+  <script src="./assets/script/logout.js"></script>
+  {{/if}}
 </body>
 <!-- Script Sources-->
 <script src="./assets/script/testing.js"></script>
@@ -48,4 +53,5 @@
       $('.modal').modal();
   })
 </script>
+
 </html>
