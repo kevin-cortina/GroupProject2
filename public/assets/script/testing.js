@@ -23,10 +23,12 @@
 
 
 //  need to import data dynamically or thru API call on page load
-var searchBar = document.getElementById("search")
+// var searchBar = document.getElementById("search")
+var searchBar = document.getElementById("searchBar")
+
 // Execute a function when the user releases a key on the keyboard
 
-// searchBar.addEventListener("keyup", function () {
+// searchBar.addEventListener("submit", function () {
 //   console.log("keyup", searchBar.value)
 // })
 
@@ -40,3 +42,15 @@ var searchBar = document.getElementById("search")
 //   searchForActor(searchString);
 //   document.getElementById('searchBar').value='';
 // })
+
+document.querySelector('#searchBar').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+    // console.log(searchBar.value)
+    event.preventDefault();
+    // Get value from text field.
+    const searchString = $('#searchBar').val();
+    // call searchForActor()
+    searchForActor(searchString);
+    // document.getElementById('searchBar').value='';
+    }
+  });
