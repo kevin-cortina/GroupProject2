@@ -3,12 +3,12 @@ const logout = async () => {
   const response = await fetch('/api/users/logout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    message: { message: 'Works' }
   });
 
   if (response.ok) {
     console.log("Am I working")
     document.location.replace('/');
+    return response.ok
   } else {
     alert('Failed to log out.');
   }
