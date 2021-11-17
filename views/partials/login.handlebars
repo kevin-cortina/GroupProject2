@@ -2,51 +2,53 @@
   <div class="modal grey darken-4" id="login">
     <div class="modal-content">
         <div class="container">
-
-            <h4 class="green-text center">Log In</h4>
-
-    
-            
-              <div class="row container grey darken-4">
-
-                <div class="input-field col s4">
-                  <input id="user_name" type="text">
-                  <label for="user_name">User Name</label>
-                </div>
-
-                <div class="input-field col s4">
-                    <input id="passWord" type="password">
-                    <label for="passWord">Password</label>
-                  </div>
-                <div class="col s4 ">
-                    <span class="green-text">Log in </span>
-                    <a href="#" class="btn-floating green pulse">
-                        <i class="material-icons">send</i>
-                    </a>
-                </div>
-              </div>
-
-           <h4 class="blue-text center">Sign Up</h4>
+              <h4 class="green-text center">Log In</h4>
 
       
-            <div class="row container grey darken-4">
+              
+                <div class="row container grey darken-4">
+                  <form class = "login-form">
+                    <div class="input-field col s4">
+                      <input id="user_name" type="text">
+                      <label for="user_name">User Name</label>
+                    </div>
 
-                <div class="input-field col s4">
-                  <input id="user_name" type="text">
-                  <label for="user_name">User Name</label>
+                    <div class="input-field col s4">
+                        <input id="passWord" type="password">
+                        <label for="passWord">Password</label>
+                      </div>
+                    <div class="col s4">
+                        <span class="green-text">Log in </span>
+                          <button id = "login-button" class="btn waves-effect waves-light"name="login-action">Login
+                              <i class="material-icons right">send</i>
+                          </button>
+                        </a>
+                    </div>
+                    </form>
                 </div>
 
-                <div class="input-field col s4">
-                    <input id="passWord" type="password">
-                    <label for="passWord">Password</label>
-                </div>
-                <div class="col s4">
-                  <span class="blue-text">Sign up </span>
-                  <a href="#" class="btn-floating blue pulse">
-                    <i class="material-icons">send</i>
-                  </a>
-                </div>
-            </div>
+            <h4 class="blue-text center">Sign Up</h4>
+
+        
+              <div class="row container grey darken-4">
+                <form class = "form signup-form">
+                  <div class="input-field col s4">
+                    <input id="user_name_signup" type="text">
+                    <label for="user_name_signup">User Name</label>
+                  </div>
+
+                  <div class="input-field col s4">
+                      <input id="passWordSignup" type="password">
+                      <label for="passWordSignup">Password</label>
+                  </div>
+                  <div class="col s4">
+                          <button id = "signup-button" class="btn waves-effect waves-light"name="signup-action">Login
+                              <i class="material-icons right">send</i>
+                          </button>
+                    </a>
+                  </div>
+                  </form>
+              </div>
         </div>
     </div>
   <div class="modal-footer grey darken-4">
@@ -56,3 +58,4 @@
     </div>
   </div>
 </div>
+<script src="./assets/script/login.js"></script>
