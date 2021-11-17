@@ -37,25 +37,22 @@ router.post('/signUp', async (req, res) => {
 
 // Login a user who already has an account.
 router.post('/login', async (req, res) => {
-  console.log('now in /login')
+  console.log('now in /login', req.body.username)
 
   try {
     const dbUserData = await Users.findOne({
       where: { username: req.body.username },
     });
-
     if (!dbUserData) {
       res.status(400).json({ message: 'Incorrect username. Please try again!' });
       return;
     }
-
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect email or password. Please try again!' });
       return;
     }
-
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = dbUserData.id;
