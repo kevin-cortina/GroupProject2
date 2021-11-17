@@ -10,10 +10,18 @@
   <link rel="stylesheet" href="./assets/css/stylesheet.css" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" type="image/png" href="./assets/pictures/favicon.png" sizes="16x16">
+  <style>
+    .input-field [type=text] {
+        color: white;  
+    }
+    .input-field [type=password] {
+    color: white;
+    }
+</style>
   <title>InterActor</title>
 </head>
+
 <body>
-<<<<<<< HEAD
   <div class="row">
     <div id="test" class="col s3">
       <h1 style="color: white;"> InterActor</h1>
@@ -24,13 +32,11 @@
       
     </div>
   </div>
-=======
-  <div id="test">
-    <h1 style="color: white;"> InterActor</h1>
-</div>
->>>>>>> bac2e48879e81bf2d3e16d3f8447aac6277992d2
 <main>
-  <div class="nav-wrapper">
+
+  {{{search}}}
+  {{!-- Search bar HBS --}}
+    <div class="nav-wrapper">
   <form style="background-color: #01579b;">
     <div class="input-field" style="background-color: white;" >
       <input id="searchBar" type="search" style="background-color: white; color: black;" placeholder="Enter an actor name ...">
@@ -40,24 +46,33 @@
     </div>        
   </form>
 </div>
-<<<<<<< HEAD
-    {{> login}}
-=======
->>>>>>> bac2e48879e81bf2d3e16d3f8447aac6277992d2
-    {{{body}}}
-</main>
+{{!-- end search bar HBS --}}
 
+
+{{!-- body HBS --}}
+<div class="row">
+    <div class="column-1" style="background-color:#01579b;">
+        <h4 class="center-align">Search Filters</h4>
+        <div id="actorFilters">
+        </div>
+    </div>
+    <div class="column-2" id="resultsCol" style="background-color:#004d40;">
+        <h4 class="center-align">Results</h4>
+    </div>
+    </div>
+{{!-- body HBS end --}}
+
+</main>
 </body>
 <!-- Script Sources-->
 <script src="./assets/script/testing.js"></script>
+<script src="./assets/script/othercode/handlebars-v4.7.7.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="./assets/script/javascript.js"></script>
-<<<<<<< HEAD
 <script>
   $(document).ready(function(){
       $('.modal').modal();
   })
 </script>
-=======
->>>>>>> bac2e48879e81bf2d3e16d3f8447aac6277992d2
 </html>
+

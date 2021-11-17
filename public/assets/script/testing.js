@@ -18,25 +18,60 @@
 //   });
 // });
 
+// const { delay } = require("lodash");
+
 // onAutocomplete()
 // console.log("suh")
 
 
 //  need to import data dynamically or thru API call on page load
-var searchBar = document.getElementById("search")
+//////////////////
+var searchBar = document.getElementById("searchBar")
 // Execute a function when the user releases a key on the keyboard
+// var searchtimer;
 
-// searchBar.addEventListener("keyup", function () {
-//   console.log("keyup", searchBar.value)
-// })
+  // searchBar.addEventListener('change', function(event) {
+
+  //   // console.log(searchBar.value)
+  //   event.preventDefault();
+  //   // Get value from text field.
+  //   const searchString = $('#searchBar').val();
+  //   // call searchForActor()
+  //   searchForActor(searchString);
+  //   // document.getElementById('searchBar').value='';
+
+  // });
 
 
-$(document).submit(function (event) {
-  console.log("This is the submit function working")
-  event.preventDefault();
-  // Get value from text field.
-  const searchString = $('#searchBar').val();
-  // call searchForActor()
-  searchForActor(searchString);
-  document.getElementById('searchBar').value='';
-})
+  
+
+  document.querySelector('#searchBar').addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+      // console.log(searchBar.value)
+      event.preventDefault();
+      // Get value from text field.
+      const searchString = $('#searchBar').val();
+      // call searchForActor()
+      searchForActor(searchString);
+      // document.getElementById('searchBar').value='';
+      }
+
+    });
+// $(document).submit(function (event) {
+//   console.log("This is the submit function working")
+//   // event.preventDefault();
+//   // // Get value from text field.
+//   // const searchString = $('#searchBar').val();
+//   // // call searchForActor()
+//   // searchForActor(searchString);
+//   // document.getElementById('searchBar').value='';
+// });
+
+// function submitFunc(event) {
+//   console.log("This is the submit function working")
+// }
+
+// // function logSubmit(event) {
+// //   log.textContent = `Form Submitted!`;
+// //   event.preventDefault();
+// // }

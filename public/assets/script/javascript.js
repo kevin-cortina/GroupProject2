@@ -149,7 +149,7 @@ const findCommonMovies = (movieIdsToCompare) => {
 
 const refreshCommonMovieIds = () => {
     const numberOfActorFilters = appData.actorFilters.length;
-    console.log('In refreshCommonMovieIds:', numberOfActorFilters)
+    // console.log('In refreshCommonMovieIds:', numberOfActorFilters)
     if (numberOfActorFilters === 0) {
         // If no actors, there should be NO commonMovieIds.
         saveAppData('common', []);
@@ -306,33 +306,34 @@ function showResults() {
                 if (!data.release_date) {
                     movieData[2] = data.status;
                 }
-                createCard2(movieUrl, imgUrl);
+                // createCard2(movieUrl, imgUrl);
+                createCard(movieData)
             });
     }
 }
 
-function createCard2(movieUrl) {
-   var ourRequest = new XMLHttpRequest(movieUrl);
-        ourRequest.open('GET', movieUrl)
-        ourRequest.send();
-        ourRequest.onload = function() {
-            if(ourRequest.status >= 200 && ourRequest.status < 400) {
-                var movieData = JSON.parse(ourRequest.responseText);
-                createHTML(movieData);
-            } else {
-                console.log("We connected to the server, but it returned an error.");
-            }
-        };     
-};
+// function createCard2(movieUrl) {
+//    var ourRequest = new XMLHttpRequest(movieUrl);
+//         ourRequest.open('GET', movieUrl)
+//         ourRequest.send();
+//         ourRequest.onload = function() {
+//             if(ourRequest.status >= 200 && ourRequest.status < 400) {
+//                 var movieData = JSON.parse(ourRequest.responseText);
+//                 createHTML(movieData);
+//             } else {
+//                 console.log("We connected to the server, but it returned an error.");
+//             }
+//         };     
+// };
 
-function createHTML(movieData) {
-    var rawTemplate = document.getElementById("resultsTemplate").innerHTML;
-    var compiledTemplate = Handlebars.compile(rawTemplate);
-    var ourGeneratedHTML = compiledTemplate(movieData);
-    console.log(ourGeneratedHTML)
-    var rawContiner = document.getElementById("resultsCol");
-    rawContiner.innerHTML = ourGeneratedHTML + rawContiner.innerHTML;
-}
+// async function createHTML(movieData) {
+//     var rawTemplate = document.getElementById("resultsTemplate").innerHTML;
+//     var compiledTemplate = Handlebars.compile(rawTemplate);
+//     var ourGeneratedHTML = compiledTemplate(movieData);
+//     // console.log(ourGeneratedHTML)
+//     var rawContiner = document.getElementById("resultsCol");
+//     rawContiner.innerHTML = ourGeneratedHTML + rawContiner.innerHTML;
+// }
 
 function favBtnColor() {
     var favBtn = document.getElementById('favBtn');
@@ -342,4 +343,46 @@ function favBtnColor() {
     else{
         favBtn.style.color = "red";            
     }
+}
+
+function createCard(movieData) {
+    let imgUrl = movieData[0];
+    let movieTitle = movieData[1];
+    let movieYear = movieData[2];
+    // let directorName = ;
+
+    let containerDiv = resultsCol.appendChild(document.createElement("div"));
+    containerDiv.setAttribute("class", "container, left-align");
+
+    let hoverDiv = containerDiv.appendChild(document.createElement("div"));
+    hoverDiv.setAttribute("class", "col s12 m6 hoverable");
+    hoverDiv.setAttribute("id", "results-card-holder");
+
+    let cardHorizDiv = hoverDiv.appendChild(document.createElement("div"));
+    cardHorizDiv.setAttribute("class", "card-horizontal");
+
+    let cardImageDiv = cardHorizDiv.appendChild(document.createElement("div"));
+    cardImageDiv.setAttribute("class", "card-image-holder");
+    cardImageDiv.setAttribute("id", "poster-image");
+
+    let posterImg = cardImageDiv.appendChild(document.createElement("img"));
+    posterImg.setAttribute("class", "card-image");
+    posterImg.setAttribute("src", imgUrl);
+
+    let cardStackedDiv = cardHorizDiv.appendChild(document.createElement("div"));
+    cardStackedDiv.setAttribute("class", "card-stacked");
+
+    let cardContentDiv = cardStackedDiv.appendChild(document.createElement("div"));
+    cardContentDiv.setAttribute("class", "card-content");
+
+    let movieTitleDiv = cardContentDiv.appendChild(document.createElement("h4"));
+    movieTitleDiv.setAttribute("id", "movies-title");
+    movieTitleDiv.textContent = movieTitle;
+
+    let movieYearDiv = cardContentDiv.appendChild(document.createElement("div"));
+    movieYearDiv.setAttribute("id", "year");
+    movieYearDiv.textContent = "(" + movieYear + ")";
+
+    let directorNameDiv = cardContentDiv.appendChild(document.createElement("div"));
+    directorNameDiv.setAttribute("id", "director");
 }

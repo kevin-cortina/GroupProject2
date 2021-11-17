@@ -1,6 +1,7 @@
 const express = require('express');
 const path= require("path")
 const exphbs =require('express-handlebars')
+const Handlebars = require("handlebars");
 const router = require("./controllers");
 const routes = require('./routes');
 const session = require('express-session');
@@ -11,20 +12,18 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const sequelize = require('./config/connection');
+const { Server } = require('http');
 const hbs = exphbs.create({})
 app.engine('handlebars',hbs.engine)
 app.set('view engine', 'handlebars');
-<<<<<<< HEAD
 
-app.engine('hbs',handlebars({
+app.engine('hbs', handlebars({
   layoutsDir : __dirname + '/views/layouts',
   defaultLayout : "mainLayout",
   extname : "hbs",
   partialsDir : __dirname + '/views/partial/'
 }))
 
-=======
->>>>>>> bac2e48879e81bf2d3e16d3f8447aac6277992d2
 //const Users = require('./models/Users');
 //const sequelize = require('./config/connection');
 
@@ -54,6 +53,5 @@ app.use(routes);
 sequelize.sync().then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
-
 
 

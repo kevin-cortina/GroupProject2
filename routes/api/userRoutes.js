@@ -111,13 +111,31 @@ router.get('/bio', async (req, res) => {
   }
 });
 
+
+////////////////////////////////////////
 // Add favorite for user.
-
-
-
+router.post('/logout', (req, res) => {
+  console.log('You have added to favorites')
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 
 // GetFavorites of user.
-
+router.get('/logout', (req, res) => {
+  console.log('You got the favorites')
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 
 
 
