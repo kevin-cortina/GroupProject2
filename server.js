@@ -22,6 +22,13 @@ app.engine('hbs', exphbs({
 }))
 
 
+
+//const Users = require('./models/Users');
+//const sequelize = require('./config/connection');
+
+//const app = express();
+//const PORT = process.env.PORT || 3001;
+
 const sess = {
   secret: 'Super secret secret',
   cookie: {},
