@@ -6,16 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  <script src="https://cdn.tiny.cloud/1/af7ecq5b1p4t0q21aqpce846b6hwbk958iphdgksqpwk2gnj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>
-    tinymce.init({
-      selector: '#bio'
-    });
-  </script>
   <link rel="stylesheet" href="./assets/css/materialize.css">
   <link rel="stylesheet" href="./assets/css/stylesheet.css" type="text/css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="icon" type="image/png" href="./assets/pictures/favicon.png" sizes="16x16">
+
+<script src="https://cdn.tiny.cloud/1/af7ecq5b1p4t0q21aqpce846b6hwbk958iphdgksqpwk2gnj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: '#bio'
+  });
+</script>
+<style>
+    .input-field [type=text] {
+        color: white;  
+    }
+    .input-field [type=password] {
+    color: white;
+    }
+</style>
+
   <title>InterActor</title>
 </head>
 <body>
@@ -26,8 +36,15 @@
 
     <div id="test" class="col s2 push-s6 valign-wrapper">
       {{#if loggedIn}}
-      <button id="logout" class="btn-no-style">Logout</button>
-         {{else}}
+        <div class="row">
+          <div class="col s3">
+          <button id="logout" class="btn red darken-2 modal-trigger">Logout</button>
+          </div>
+          <div class="col s2">
+          <a href="#biomodal" class="btn green darken-4 modal-trigger" id = "bio_btn">Bio</a>
+          </div>
+        </div>
+      {{else}}
       <a href="#login" class="btn green darken-4 modal-trigger" id = "login_btn">Login/Signup</a>
       {{/if}}
     </div>
@@ -59,6 +76,7 @@
   $(document).ready(function(){
       $('.modal').modal();
   })
+
 </script>
 
 </html>
