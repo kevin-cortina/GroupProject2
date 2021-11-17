@@ -329,9 +329,12 @@ function createHTML(movieData) {
     var rawTemplate = document.getElementById("resultsTemplate").innerHTML;
     var compiledTemplate = Handlebars.compile(rawTemplate);
     var ourGeneratedHTML = compiledTemplate(movieData);
-    console.log(ourGeneratedHTML)
+    console.log(compiledTemplate(movieData))
+    // console.log(ourGeneratedHTML)
     var rawContiner = document.getElementById("resultsCol");
     rawContiner.innerHTML = ourGeneratedHTML + rawContiner.innerHTML;
+    // console.log(movieData)
+
 }
 
 function favBtnColor() {
@@ -343,3 +346,17 @@ function favBtnColor() {
         favBtn.style.color = "red";            
     }
 }
+
+// module.exports = javascript
+
+
+
+
+
+// Handlebars.registerHelper('datainjection', function(context, options) {
+//     this.name = "Bob";
+//     this.newData = "Updated"
+//     return context.fn(this, { data: {private:"pirate"} });
+// });
+
+
