@@ -3,7 +3,15 @@ require('dotenv').config();
 let sequelize
 // Create a connection object
 if (process.env.JAWSDB_URL) {
-  sequelize = new Sequelize(process.env.JAWSDB_URL);
+  sequelize = new Sequelize(
+    process.env.JAWSDB_URL,
+  {
+    username: 'h26fzvipzs9lyvhs',
+    password: 'atrwaxjx0howziwn',
+    database: 'qo0z1hrj5ejlsrbw',
+    host: 'ro2padgkirvcf55m.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    dialect: 'mysql'
+  })
 } else {
   sequelize = new Sequelize(
     process.env.DB_NAME,
