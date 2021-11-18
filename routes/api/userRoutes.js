@@ -7,12 +7,12 @@ router.get('/getLoginForm', (req, res) => {
   if (req.session && req.session.loggedIn) {
     console.log('session exists')
     res.status(200).send('session exists, about to redirect ...')
-    // res.redirect('/'); // Is this right?
-    // return;
+    res.redirect('/'); // Is this right?
+    return;
   } else {
     console.log('session NOT exists')
     res.status(500).send('session NOT exists, about to return login form')
-    // res.render('login');
+    res.render('login');
   }
 });
 
@@ -37,6 +37,7 @@ router.post('/signUp', async (req, res) => {
 
 // Login a user who already has an account.
 router.post('/login', async (req, res) => {
+  // console.log('now in /login')
   console.log('now in /login', req.body.username)
 
   try {
@@ -107,35 +108,7 @@ router.get('/bio', async (req, res) => {
 });
 
 // Add favorite for user.
-router.put('/favorites', async (req, res) => {
-  try {
-    const user = await Users.findByPk(req.session.userId);
-    
-    const incomingFavorite = req.body.newFavorite;
-    const existingFavorites = user.favorites;
-    const newFavorites = existingFavorites + ',' + incomingFavorite;
-
-    user.favorites = newFavorites;
-    console.log('user.favorites:', user.favorites)
-    await user.save();
-    res.status(200).send(user.favorites);
-  } catch (error) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-
 
 // GetFavorites of user.
-router.get('/favorites', async (req, res) => {
-  try {
-      const user = await Users.findByPk(req.session.userId);
-      res.status(200).json(user.favorites);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;
