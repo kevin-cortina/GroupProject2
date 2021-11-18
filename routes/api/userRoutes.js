@@ -91,34 +91,34 @@ router.post('/logout', (req, res) => {
 });
 
 // Set bio field of user.
-// router.put('/bio', async (req, res) => {
-//   Users.update(
-//     {
-//       bio: req.body.bio
-//     },
-//     {
-//       where: {
-//         id: req.session.userId
-//       },
-//     }
-//   )
-//     .then((updatedUser) => {
-//       // Sends the updated book as a json response
-//       res.json(updatedUser);
-//     })
-//     .catch((err) => res.json(err));
-// })
+router.put('/bio', async (req, res) => {
+  Users.update(
+    {
+      bio: req.body.bio
+    },
+    {
+      where: {
+        id: req.session.userId
+      },
+    }
+  )
+    .then((updatedUser) => {
+      // Sends the updated book as a json response
+      res.json(updatedUser);
+    })
+    .catch((err) => res.json(err));
+})
 
-// // Get bio field of user.
-// router.get('/bio', async (req, res) => {
-//   try {
-//       const user = await Users.findByPk(req.session.userId);
-//       res.status(200).json(user.bio);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
+// Get bio field of user.
+router.get('/bio', async (req, res) => {
+  try {
+      const user = await Users.findByPk(req.session.userId);
+      res.status(200).json(user.bio);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 // Add favorite for user.
 router.put('/favorites', async (req, res) => {
