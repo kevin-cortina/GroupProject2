@@ -6,10 +6,10 @@ if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(
     process.env.JAWSDB_URL,
   {
-    username: 'h26fzvipzs9lyvhs',
-    password: 'atrwaxjx0howziwn',
-    database: 'qo0z1hrj5ejlsrbw',
-    host: 'ro2padgkirvcf55m.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    username: 'b1m7tki70au8qnvy',
+    password: 'h0dhvngvy56rwkkd',
+    database: 'axg0js0lfs2gwq4q',
+    host: '	w3epjhex7h2ccjxx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     dialect: 'mysql'
   })
 } else {
